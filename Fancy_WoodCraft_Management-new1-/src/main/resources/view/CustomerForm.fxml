@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Point3D?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="CustomerPane" prefHeight="768.0" prefWidth="1244.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.FancyWoodCraftManagement.controller.CustomerFormController">
+   <children>
+      <ImageView fitHeight="768.0" fitWidth="1244.0">
+         <image>
+            <Image url="@../assests/ggg.jpeg" />
+         </image>
+      </ImageView>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#b07e38d6" height="735.0" layoutX="271.0" layoutY="17.0" stroke="#f89393" strokeType="INSIDE" width="923.0">
+         <rotationAxis>
+            <Point3D x="10.0" y="10.0" z="1.0" />
+         </rotationAxis>
+      </Rectangle>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a68f6a" height="303.0" layoutX="326.0" layoutY="100.0" stroke="BLACK" strokeType="INSIDE" width="812.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#b07f37d6" height="768.0" stroke="BLACK" strokeType="INSIDE" width="229.0" />
+      <JFXButton fx:id="btnDashboard" layoutX="25.0" layoutY="122.0" onAction="#btnDashboardOnAction" prefHeight="39.0" prefWidth="180.0" style="-fx-background-color: white;" text="Dashboard" />
+      <JFXButton fx:id="btnProduct" layoutX="25.0" layoutY="171.0" onAction="#btnProductOnAction" prefHeight="39.0" prefWidth="180.0" style="-fx-background-color: white;" text="Product" />
+      <JFXButton fx:id="btnCustomer" buttonType="RAISED" layoutX="25.0" layoutY="221.0" onAction="#btnCustomerOnAction" prefHeight="39.0" prefWidth="180.0" style="-fx-background-color: #8f2806;" text="Customer" textFill="WHITE" />
+      <JFXButton fx:id="btnSuppplier" layoutX="25.0" layoutY="277.0" onAction="#btnSuppplierOnAction" prefHeight="39.0" prefWidth="180.0" style="-fx-background-color: white;" text="Supplier" />
+      <JFXButton fx:id="btnOrders" layoutX="25.0" layoutY="334.0" onAction="#btnOrdersOnAction" prefHeight="39.0" prefWidth="180.0" style="-fx-background-color: white;" text="Orders" />
+      <JFXButton fx:id="btnRawMaterials" layoutX="25.0" layoutY="449.0" onAction="#btnRawMaterialsOnAction" prefHeight="39.0" prefWidth="180.0" style="-fx-background-color: white;" text="Raw Materials" />
+      <JFXButton fx:id="btnDelivery" layoutX="25.0" layoutY="501.0" onAction="#btnDeliveryOnAction" prefHeight="39.0" prefWidth="180.0" style="-fx-background-color: white;" text="Delivery" />
+      <JFXButton fx:id="btnEmployee" layoutX="25.0" layoutY="557.0" onAction="#btnEmployeeOnAction" prefHeight="39.0" prefWidth="180.0" style="-fx-background-color: white;" text="Employee" />
+      <JFXButton fx:id="btnEmployeeSalary" layoutX="25.0" layoutY="613.0" onAction="#btnEmployeeSalaryOnAction" prefHeight="39.0" prefWidth="180.0" style="-fx-background-color: white;" text="    Employee Salary" />
+      <JFXButton fx:id="btnLogout" layoutX="25.0" layoutY="671.0" onAction="#btnLogoutOnAction" prefHeight="39.0" prefWidth="180.0" style="-fx-background-color: white;" text="Log out" />
+      <ImageView fitHeight="93.0" fitWidth="111.0" layoutX="59.0" layoutY="14.0">
+         <image>
+            <Image url="@../assests/360_F_369207830_BM5cj4MLeskoR5QmJzzmFbaDT2YdnbZp.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="22.0" fitWidth="22.0" layoutX="37.0" layoutY="285.0">
+         <image>
+            <Image url="@../icon/icons8-supplier-50.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="22.0" fitWidth="22.0" layoutX="37.0" layoutY="622.0">
+         <image>
+            <Image url="@../icon/icons8-salary-50.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="22.0" fitWidth="22.0" layoutX="37.0" layoutY="457.0">
+         <image>
+            <Image url="@../icon/icons8-materials-50.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="22.0" fitWidth="22.0" layoutX="37.0" layoutY="179.0">
+         <image>
+            <Image url="@../icon/icons8-item-30.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="22.0" fitWidth="22.0" layoutX="37.0" layoutY="343.0">
+         <image>
+            <Image url="@../icon/icons8-gifts-32.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="22.0" fitWidth="22.0" layoutX="37.0" layoutY="566.0">
+         <image>
+            <Image url="@../icon/icons8-employee-50.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="22.0" fitWidth="22.0" layoutX="37.0" layoutY="509.0">
+         <image>
+            <Image url="@../icon/icons8-delivery-30.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="22.0" fitWidth="22.0" layoutX="37.0" layoutY="131.0">
+         <image>
+            <Image url="@../icon/icons8-dashboard-50.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="22.0" fitWidth="22.0" layoutX="37.0" layoutY="230.0">
+         <image>
+            <Image url="@../icon/icons8-customer-64.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="22.0" fitWidth="22.0" layoutX="37.0" layoutY="680.0">
+         <image>
+            <Image url="@../icon/icons8-log-out-60.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="326.0" layoutY="30.0" prefHeight="61.0" prefWidth="303.0" text="Customer  Manage" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="375.0" layoutY="162.0" prefHeight="21.0" prefWidth="111.0" text="C_ID         :">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="375.0" layoutY="218.0" prefHeight="21.0" prefWidth="111.0" text="Name       :">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="375.0" layoutY="275.0" prefHeight="21.0" prefWidth="111.0" text="Address   :">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="367.0" layoutY="333.0" prefHeight="21.0" prefWidth="120.0" text="Telephone :">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtC_ID" layoutX="503.0" layoutY="149.0" onAction="#txtC_IDOnAction" prefHeight="46.0" prefWidth="303.0" promptText="C_ID" style="-fx-background-color: white;" />
+      <TextField fx:id="txtName" layoutX="503.0" layoutY="205.0" onAction="#txtNameOnAction" prefHeight="46.0" prefWidth="303.0" promptText="Name" style="-fx-background-color: white;" />
+      <TextField fx:id="txtAddress" layoutX="503.0" layoutY="262.0" onAction="#txtAddressOnAction" prefHeight="46.0" prefWidth="303.0" promptText="Address" style="-fx-background-color: white;" />
+      <TextField fx:id="txtTelephone" layoutX="503.0" layoutY="320.0" onAction="#txtTelephoneOnAction" prefHeight="46.0" prefWidth="303.0" promptText="Telephone" style="-fx-background-color: white;" />
+      <JFXButton fx:id="btnSave" layoutX="994.0" layoutY="155.0" onAction="#btnSaveOnAction" prefHeight="35.0" prefWidth="82.0" style="-fx-background-color: #8f2806;" text="   Save" textFill="#ffea00" />
+      <JFXButton fx:id="btnUpdate" layoutX="994.0" layoutY="201.0" onAction="#btnUpdateOnAction" prefHeight="35.0" prefWidth="82.0" style="-fx-background-color: #8f2806;" text="    Update" textFill="#ffea00" />
+      <JFXButton fx:id="btnDelete" layoutX="994.0" layoutY="248.0" onAction="#btnDeleteOnAction" prefHeight="35.0" prefWidth="82.0" style="-fx-background-color: #8f2806;" text="     Delete" textFill="#ffea00" />
+      <JFXButton fx:id="btnClear" layoutX="994.0" layoutY="301.0" onAction="#btnClearOnAction" prefHeight="35.0" prefWidth="82.0" style="-fx-background-color: #8f2806;" text="   Clear" textFill="#ffea00" />
+      <ImageView layoutX="994.0" layoutY="207.0">
+         <image>
+            <Image url="@../icon/update.png" />
+         </image>
+      </ImageView>
+      <ImageView layoutX="994.0" layoutY="254.0">
+         <image>
+            <Image url="@../icon/icons8-delete-24.png" />
+         </image>
+      </ImageView>
+      <TableView fx:id="tableCustomer" layoutX="327.0" layoutY="431.0" prefHeight="240.0" prefWidth="812.0">
+        <columns>
+          <TableColumn fx:id="columnC_ID" prefWidth="122.0" text="C_ID" />
+          <TableColumn fx:id="columnName" prefWidth="143.0" text="Name" />
+            <TableColumn fx:id="columnAddress" prefWidth="193.0" text="Address" />
+            <TableColumn fx:id="columnTelephone" prefWidth="180.0" text="Telephone" />
+            <TableColumn fx:id="columnLoyalatyStatus" prefWidth="173.0" text="Loyalty Staus" />
+        </columns>
+      </TableView>
+      <JFXButton fx:id="btnBack" layoutX="1018.0" layoutY="687.0" onAction="#btnBackOnAction" prefHeight="35.0" prefWidth="82.0" style="-fx-background-color: #f2cf9a;" text="Back">
+         <graphic>
+            <ImageView>
+               <image>
+                  <Image url="@../icon/icons8-back-24.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </JFXButton>
+      <JFXButton fx:id="btnOrderDetails" layoutX="25.0" layoutY="389.0" onAction="#btnOrderDetailsOnAction" prefHeight="39.0" prefWidth="180.0" style="-fx-background-color: white;" text="Order Deatils" />
+      <ImageView fitHeight="22.0" fitWidth="22.0" layoutX="37.0" layoutY="398.0">
+         <image>
+            <Image url="@../icon/icons8-maximum-order-32.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="24.0" fitWidth="22.0" layoutX="995.0" layoutY="306.0">
+         <image>
+            <Image url="@../icon/icons8-clear-50.png" />
+         </image>
+      </ImageView>
+      <ImageView layoutX="994.0" layoutY="161.0">
+         <image>
+            <Image url="@../icon/save.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>

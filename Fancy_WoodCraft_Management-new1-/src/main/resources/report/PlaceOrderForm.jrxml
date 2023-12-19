@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.2.0.final using JasperReports Library version 6.2.0  -->
+<!-- 2023-11-23T14:53:24 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="PlaceOrderForm" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f1fb407e-a8fc-4246-a79c-4e3dd9cff917">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter (5)"/>
+	<queryString>
+		<![CDATA[select  od.Order_ID,
+od.Product_ID,
+od.qty ,
+o.C_ID,
+o.date
+ from Order_Detail od
+ join
+Orders o
+on od.Order_ID=o.Order_ID]]>
+	</queryString>
+	<field name="Order_ID" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Product_ID" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="qty" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="C_ID" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="date" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<group name="Order_ID">
+		<groupExpression><![CDATA[$F{Order_ID}]]></groupExpression>
+	</group>
+	<group name="Product_ID">
+		<groupExpression><![CDATA[$F{Product_ID}]]></groupExpression>
+	</group>
+	<group name="qty">
+		<groupExpression><![CDATA[$F{qty}]]></groupExpression>
+	</group>
+	<group name="C_ID">
+		<groupExpression><![CDATA[$F{C_ID}]]></groupExpression>
+	</group>
+	<group name="date">
+		<groupExpression><![CDATA[$F{date}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="50" splitType="Stretch">
+			<staticText>
+				<reportElement x="191" y="0" width="178" height="30" uuid="dd235442-16f4-49de-85c7-e8419bd053ee"/>
+				<textElement>
+					<font size="18"/>
+				</textElement>
+				<text><![CDATA[Place Order Form]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="32" splitType="Stretch">
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement x="444" y="0" width="100" height="30" uuid="dd828b21-cfa6-40fe-9570-3f461c34b999"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="30" uuid="1fc0e386-ff08-4ded-8449-b2400fb3e577"/>
+				<text><![CDATA[Order_ID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="110" y="0" width="100" height="30" uuid="beedc2c7-517f-4aca-bba0-5dd781b89a96"/>
+				<text><![CDATA[Product_ID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="227" y="0" width="100" height="30" uuid="f3e3a7c6-1ae7-40f5-b183-3761a85555c2"/>
+				<text><![CDATA[C_ID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="340" y="0" width="100" height="30" uuid="5fb046dd-781a-45de-9508-002cf5a0ab0a"/>
+				<text><![CDATA[qty]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="447" y="0" width="95" height="30" uuid="97086b4a-d206-4de7-83f7-599f9c2ada78"/>
+				<text><![CDATA[date]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="37" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="100" height="30" uuid="df7d635d-d08f-4d50-b700-23401ddfe037"/>
+				<textFieldExpression><![CDATA[$F{Order_ID}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="110" y="0" width="100" height="30" uuid="cf488799-99d8-4799-811f-3fe0d5ad7754"/>
+				<textFieldExpression><![CDATA[$F{Product_ID}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="227" y="0" width="100" height="30" uuid="570e42fd-3104-42db-a6b4-3f584b02e525"/>
+				<textFieldExpression><![CDATA[$F{C_ID}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="330" y="0" width="100" height="30" uuid="12a14af6-8aef-4d54-aca1-e4f45ed011ba"/>
+				<textFieldExpression><![CDATA[$F{qty}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="450" y="0" width="100" height="30" uuid="dcc575c7-2fd4-47b2-a8ec-534ef173d03d"/>
+				<textFieldExpression><![CDATA[$F{date}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="28" splitType="Stretch">
+			<textField>
+				<reportElement x="265" y="-2" width="25" height="30" uuid="9d4aeec5-6df2-4be3-9bee-6f22d7820cb2"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+</jasperReport>

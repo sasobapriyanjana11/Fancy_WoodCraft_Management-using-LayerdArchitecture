@@ -79,12 +79,8 @@ public class LoginFormController {
 
         }
 
-
-
-
         @FXML
         void txtPasswordOnAction(ActionEvent event) {
-
         }
 
         @FXML

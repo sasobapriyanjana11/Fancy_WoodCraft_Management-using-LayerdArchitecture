@@ -15,9 +15,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import lk.ijse.FancyWoodCraftManagement.db.DbConnection;
-import lk.ijse.FancyWoodCraftManagement.dto.EmployeeDto;
-import lk.ijse.FancyWoodCraftManagement.model.EmployeeModel;
+
+import lk.ijse.Layerd.dao.custom.EmployeeDAO;
+import lk.ijse.Layerd.dao.custom.Impl.EmployeeModel;
+import lk.ijse.Layerd.db.DbConnection;
+import lk.ijse.Layerd.dto.EmployeeDto;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -110,7 +112,7 @@ public class EmployeeFormController {
     @FXML
     private TextField txtTelephone;
 
-
+    EmployeeDAO employeeDAO=new lk.ijse.Layerd.dao.custom.Impl.EmployeeModel();
 
     @FXML
     void btnBackOnAction(ActionEvent event) throws IOException {
@@ -169,10 +171,12 @@ public class EmployeeFormController {
     @FXML
     void btnDeleteOnAction(ActionEvent event) {
         String E_ID= txtE_ID.getText();
-        var model=new EmployeeModel();
+        //var model=new EmployeeModel();
+
 
         try{
-            boolean isDeleted= model.deleteEmployee(E_ID);
+          //  boolean isDeleted= model.deleteEmployee(E_ID);
+            boolean isDeleted=employeeDAO.delete(E_ID);
             if(isDeleted){
                 tableEmployee.refresh();
                 new Alert(Alert.AlertType.CONFIRMATION,"Employee deleted ").show();
@@ -307,7 +311,7 @@ public class EmployeeFormController {
         columnName.setCellValueFactory(new PropertyValueFactory<>("name"));
         columnJobTitle.setCellValueFactory(new PropertyValueFactory<>("jobTitle"));
         columnTelephone.setCellValueFactory(new PropertyValueFactory<>("tel"));
-        
+
     }
 
     private void loadAllEmployee() {
@@ -316,7 +320,8 @@ public class EmployeeFormController {
         ObservableList<EmployeeDto> obList = FXCollections.observableArrayList();
 
         try {
-            List<EmployeeDto> dtoList = model.getAllEmployee();
+            //List<EmployeeDto> dtoList = model.getAllEmployee();
+            List<EmployeeDto> dtoList = employeeDAO.getAll();
 
             for(EmployeeDto dto : dtoList) {
                 obList.add(
@@ -346,9 +351,10 @@ public class EmployeeFormController {
            String tel = txtTelephone.getText();
 
            var dto = new EmployeeDto(E_ID, name, job, tel);
-           var model = new EmployeeModel();
+         //  var model = new EmployeeModel();
            try {
-               boolean isSaved = model.saveEmployee(dto);
+              // boolean isSaved = model.saveEmployee(dto);
+               boolean isSaved=employeeDAO.save(dto);
                if (isSaved) {
                    new Alert(Alert.AlertType.CONFIRMATION, "Employee is saved ").showAndWait();
 
@@ -464,9 +470,11 @@ public class EmployeeFormController {
             String job = txtJobTitle.getText();
 
             var dto = new EmployeeDto(E_ID, name, job, tel);
-            var model = new EmployeeModel();
+           // var model = new EmployeeModel();
             try {
-                boolean isUpdated = model.updateEmployee(dto);
+               // boolean isUpdated = model.updateEmployee(dto);
+
+                boolean isUpdated=employeeDAO.update(dto);
                 if (isUpdated) {
                     new Alert(Alert.AlertType.CONFIRMATION, "Employee is Updated").showAndWait();
                     /////
@@ -496,7 +504,8 @@ public class EmployeeFormController {
 
         var model = new EmployeeModel();
         try {
-            EmployeeDto dto = model.searchEmployee(id);
+          //  EmployeeDto dto = model.searchEmployee(id);
+            EmployeeDto dto=employeeDAO.search(id);
 
             if(dto != null) {
                 fillFields(dto);

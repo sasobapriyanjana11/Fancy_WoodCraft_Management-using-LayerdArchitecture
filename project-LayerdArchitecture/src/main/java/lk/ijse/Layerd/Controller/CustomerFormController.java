@@ -15,10 +15,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import lk.ijse.FancyWoodCraftManagement.dto.CustomerDto;
-import lk.ijse.FancyWoodCraftManagement.dto.tm.CustomerTmDis;
-import lk.ijse.FancyWoodCraftManagement.model.CustomerModel;
-import lk.ijse.FancyWoodCraftManagement.model.OrdersModel;
+
+import lk.ijse.Layerd.dao.custom.CustomerDAO;
+import lk.ijse.Layerd.dao.custom.Impl.CustomerModel;
+import lk.ijse.Layerd.dao.custom.Impl.OrdersModel;
+import lk.ijse.Layerd.dto.CustomerDto;
+import lk.ijse.Layerd.view.tdm.CustomerTmDis;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -113,6 +115,7 @@ public class CustomerFormController {
 
     private  final OrdersModel ordersModel=new OrdersModel();
 
+    CustomerDAO customerDAO=new lk.ijse.Layerd.dao.custom.Impl.CustomerModel();
 
 
     @FXML
@@ -161,9 +164,11 @@ public class CustomerFormController {
     void btnDeleteOnAction(ActionEvent event) {
 
         String C_ID=  txtC_ID.getText();
-        var model=new CustomerModel();
+       // var model=new CustomerModel();
         try {
-            boolean isDeleted= model.deleteCustomer(C_ID);
+           // boolean isDeleted= model.deleteCustomer(C_ID);
+
+            boolean isDeleted=customerDAO.deleteCustomer(C_ID);
             if(isDeleted){
                 tableCustomer.refresh();
                 new Alert(Alert.AlertType.CONFIRMATION,"Customer deleted successfully").show();
@@ -307,12 +312,14 @@ public class CustomerFormController {
     }
 
     private void loadAllCustomers() {
-        var model = new CustomerModel();
+      //  var model = new CustomerModel();
 
         ObservableList<CustomerDto> obList = FXCollections.observableArrayList();
 
         try {
-            List<CustomerDto> dtoList = model.getAllCustomers();
+          //  List<CustomerDto> dtoList = model.getAllCustomers();
+
+            List<CustomerDto> dtoList=customerDAO.getAllCustomers();
 
             for(CustomerDto dto : dtoList) {
                 obList.add(
@@ -349,10 +356,12 @@ public class CustomerFormController {
            // var dto = new CustomerDto(C_ID, name, Address, LoyaltyStatus, Tel);
             var dto=new CustomerTmDis(C_ID, name, Address,LoyaltyStatus,discountPercentage,Tel);
 
-            var model = new CustomerModel();
+           // var model = new CustomerModel();
 
             try {
-                boolean isSaved = model.saveCustomer(dto);
+               // boolean isSaved = model.saveCustomer(dto);
+
+                boolean isSaved=customerDAO.saveCustomer(dto);
                 if (isSaved) {
                     new Alert(Alert.AlertType.CONFIRMATION, "Customer Saved").showAndWait();
                     ////
@@ -480,9 +489,11 @@ public class CustomerFormController {
             String LoyaltyStatus = columnLoyalatyStatus.getText();
 
             var dto = new CustomerDto(C_ID, name, Address, LoyaltyStatus, Tel);
-            var model = new CustomerModel();
+           // var model = new CustomerModel();
             try {
-                boolean isUpdated = model.updateCustomer(dto);
+              //  boolean isUpdated = model.updateCustomer(dto);
+
+                boolean isUpdated=customerDAO.updateCustomer(dto);
                 if (isUpdated) {
                     new Alert(Alert.AlertType.CONFIRMATION, "Customer is Updated").showAndWait();
 
@@ -516,7 +527,9 @@ public class CustomerFormController {
 
         var model = new CustomerModel();
         try {
-            CustomerDto dto = model.searchCustomer(id);
+          //  CustomerDto dto = model.searchCustomer(id);
+
+            CustomerDto dto=customerDAO.searchCustomer(id);
 
             if(dto != null) {
                 fillFields(dto);

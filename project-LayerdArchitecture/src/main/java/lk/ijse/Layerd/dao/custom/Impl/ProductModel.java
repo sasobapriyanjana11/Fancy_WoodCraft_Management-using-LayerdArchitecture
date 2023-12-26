@@ -1,10 +1,12 @@
 package lk.ijse.Layerd.dao.custom.Impl;
 
-import lk.ijse.FancyWoodCraftManagement.db.DbConnection;
-import lk.ijse.FancyWoodCraftManagement.dto.ProductDto;
-import lk.ijse.FancyWoodCraftManagement.dto.tm.CartTm;
-import lk.ijse.FancyWoodCraftManagement.dto.tm.productTm;
 
+import lk.ijse.Layerd.dao.custom.ProductDAO;
+import lk.ijse.Layerd.dao.sqlUtil;
+import lk.ijse.Layerd.db.DbConnection;
+import lk.ijse.Layerd.dto.ProductDto;
+import lk.ijse.Layerd.view.tdm.CartTm;
+import lk.ijse.Layerd.view.tdm.productTm;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,9 +14,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductModel {
-    public static boolean saveProduct(final ProductDto dto) throws SQLException {
-        Connection connection= DbConnection.getInstance().getConnection();
+public class ProductModel implements ProductDAO {
+
+   @Override
+    public  boolean save(final ProductDto dto) throws SQLException {
+       /* Connection connection= DbConnection.getInstance().getConnection();
 
        String sql="INSERT INTO Product VALUES(?,?,?,?,?)";
         PreparedStatement preparedStatement= connection.prepareStatement(sql);
@@ -25,11 +29,14 @@ public class ProductModel {
         preparedStatement.setDouble(5,dto.getQuantityOnStock());
      boolean isSaved=preparedStatement.executeUpdate()>0;
 
-        return  isSaved;
+        return  isSaved;*/
+
+        return sqlUtil.execute("INSERT INTO Product VALUES(?,?,?,?,?)",dto.getProduct_ID(),dto.getName(),dto.getDescription(),dto.getPrice(),dto.getQuantityOnStock());
 
     }
-    public boolean updateProduct(final productTm tm) throws SQLException {
-        Connection connection=DbConnection.getInstance().getConnection();
+   @Override
+    public boolean update(final ProductDto tm) throws SQLException {
+        /*Connection connection=DbConnection.getInstance().getConnection();
         String sql="UPDATE Product SET name=?,Description=?,Price=?,Quantity_On_Stock=? WHERE Product_ID=?";
         PreparedStatement preparedStatement= connection.prepareStatement(sql);
 
@@ -40,24 +47,32 @@ public class ProductModel {
         preparedStatement.setString(5,tm.getProduct_ID());
 
         boolean  isUpdated=preparedStatement.executeUpdate()>0;
-        return isUpdated;
+        return isUpdated;*/
+
+        return sqlUtil.execute("UPDATE Product SET name=?,Description=?,Price=?,Quantity_On_Stock=? WHERE Product_ID=?",tm.getName(),tm.getDescription(),tm.getPrice(),tm.getQuantityOnStock(),tm.getProduct_ID());
     }
-    public boolean deleteProduct(String Product_ID) throws SQLException {
-        Connection connection=DbConnection.getInstance().getConnection();
+    @Override
+    public boolean delete(String Product_ID) throws SQLException {
+       /* Connection connection=DbConnection.getInstance().getConnection();
 
         String sql="DELETE  FROM Product WHERE Product_ID=?";
         PreparedStatement preparedStatement= connection.prepareStatement(sql);
         preparedStatement.setString(1,Product_ID);
 
         boolean isDeleted=preparedStatement.executeUpdate()>0;
-        return  isDeleted;
+        return  isDeleted;*/
+
+        return sqlUtil.execute("DELETE  FROM Product WHERE Product_ID=?",Product_ID);
 
     }
+    @Override
     public List<ProductDto> loadAllProduct() throws SQLException {
-        Connection connection = DbConnection.getInstance().getConnection();
+      /*  Connection connection = DbConnection.getInstance().getConnection();
 
         String sql = "SELECT * FROM Product";
-        ResultSet resultSet = connection.prepareStatement(sql).executeQuery();
+        ResultSet resultSet = connection.prepareStatement(sql).executeQuery();*/
+
+        ResultSet resultSet=sqlUtil.execute("SELECT * FROM Product");
 
         List<ProductDto> proList= new ArrayList<>();
 
@@ -71,16 +86,18 @@ public class ProductModel {
             ) );}
         return proList;
     }
-
-    public List<ProductDto> getAllProduct() throws SQLException {
-        Connection connection = DbConnection.getInstance().getConnection();
+@Override
+    public List<ProductDto> getAll() throws SQLException {
+    /*    Connection connection = DbConnection.getInstance().getConnection();
 
         String sql = "SELECT * FROM Product";
-        PreparedStatement pstm = connection.prepareStatement(sql);
+        PreparedStatement pstm = connection.prepareStatement(sql);*/
 
         List<ProductDto> dtoList = new ArrayList<>();
 
-        ResultSet resultSet = pstm.executeQuery();
+        //ResultSet resultSet = pstm.executeQuery();
+
+        ResultSet resultSet=sqlUtil.execute("SELECT * FROM Product");
 
         while (resultSet.next()) {
             String Product_ID= resultSet.getString(1);
@@ -95,14 +112,18 @@ public class ProductModel {
         }
         return dtoList;
     }
-    public ProductDto  searchProduct(String id) throws SQLException {
-        Connection connection = DbConnection.getInstance().getConnection();
+
+    @Override
+    public ProductDto  search(String id) throws SQLException {
+      /*  Connection connection = DbConnection.getInstance().getConnection();
 
         String sql = "SELECT * FROM Product WHERE Product_ID = ?";
         PreparedStatement pstm = connection.prepareStatement(sql);
         pstm.setString(1, id);
 
-        ResultSet resultSet = pstm.executeQuery();
+        ResultSet resultSet = pstm.executeQuery();*/
+
+        ResultSet resultSet=sqlUtil.execute("SELECT * FROM Product WHERE Product_ID = ?",id);
 
         ProductDto dto = null;
 
@@ -119,6 +140,8 @@ public class ProductModel {
 
         return dto;
     }
+
+    @Override
     public boolean updateItem(List<CartTm> tmList) throws SQLException {
         for (CartTm cartTm : tmList) {
             if(!updateQty(cartTm)) {
@@ -128,31 +151,23 @@ public class ProductModel {
         return true;
     }
 
- /*    private boolean updateQty(CartTm cartTm) throws SQLException {
-        Connection connection = DbConnection.getInstance().getConnection();
-
-        String sql = "UPDATE Product SET Quantity_On_Stock = QTY -? WHERE Product_ID = ?";
-        PreparedStatement pstm = connection.prepareStatement(sql);
-        pstm.setInt(1, cartTm.getQty());
-        pstm.setString(2, cartTm.getCode());
-
-        return pstm.executeUpdate() > 0; //true
-    }*/
 
     private boolean updateQty(CartTm cartTm) throws SQLException {
-        Connection connection = DbConnection.getInstance().getConnection();
+       /* Connection connection = DbConnection.getInstance().getConnection();
 
         String sql = "UPDATE Product SET Quantity_On_Stock = Quantity_On_Stock -? WHERE Product_ID = ?";
         PreparedStatement pstm = connection.prepareStatement(sql);
         pstm.setInt(1, cartTm.getQty());
         pstm.setString(2, cartTm.getCode());
 
-        return pstm.executeUpdate() > 0;
+        return pstm.executeUpdate() > 0;*/
+
+        return sqlUtil.execute("UPDATE Product SET Quantity_On_Stock = Quantity_On_Stock -? WHERE Product_ID = ?",cartTm.getQty(),cartTm.getCode());
     }
 
-
+ @Override
     public List<ProductDto> searchProductByName(String name) throws SQLException {
-     Connection connection=  DbConnection.getInstance().getConnection();
+    Connection connection=  DbConnection.getInstance().getConnection();
         List<ProductDto> productList = new ArrayList<>();
 
         String sql = "SELECT * FROM Product WHERE name LIKE ?";

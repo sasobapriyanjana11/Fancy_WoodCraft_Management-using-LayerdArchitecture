@@ -1,6 +1,6 @@
 package lk.ijse.Layerd.view.tdm;
 
-import lk.ijse.FancyWoodCraftManagement.dto.RawMaterialDto;
+import lk.ijse.Layerd.dto.RawMaterialDto;
 import lombok.*;
 
 import java.time.LocalDate;

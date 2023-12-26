@@ -14,16 +14,20 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import lk.ijse.FancyWoodCraftManagement.db.DbConnection;
-import lk.ijse.FancyWoodCraftManagement.dto.CustomerDto;
-import lk.ijse.FancyWoodCraftManagement.dto.PlaceOrderDto;
-import lk.ijse.FancyWoodCraftManagement.dto.ProductDto;
-import lk.ijse.FancyWoodCraftManagement.dto.tm.CartTm;
-import lk.ijse.FancyWoodCraftManagement.dto.tm.CustomerTm;
-import lk.ijse.FancyWoodCraftManagement.model.CustomerModel;
-import lk.ijse.FancyWoodCraftManagement.model.OrdersModel;
-import lk.ijse.FancyWoodCraftManagement.model.PlaceOrderModel;
-import lk.ijse.FancyWoodCraftManagement.model.ProductModel;
+
+import lk.ijse.Layerd.dao.custom.CustomerDAO;
+import lk.ijse.Layerd.dao.custom.Impl.CustomerModel;
+import lk.ijse.Layerd.dao.custom.Impl.OrdersModel;
+import lk.ijse.Layerd.dao.custom.Impl.PlaceOrderModel;
+import lk.ijse.Layerd.dao.custom.Impl.ProductModel;
+import lk.ijse.Layerd.dao.custom.OrdersDAO;
+import lk.ijse.Layerd.dao.custom.ProductDAO;
+import lk.ijse.Layerd.db.DbConnection;
+import lk.ijse.Layerd.dto.CustomerDto;
+import lk.ijse.Layerd.dto.PlaceOrderDto;
+import lk.ijse.Layerd.dto.ProductDto;
+import lk.ijse.Layerd.view.tdm.CartTm;
+import lk.ijse.Layerd.view.tdm.CustomerTm;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -39,9 +43,14 @@ import java.util.List;
 import java.util.Optional;
 
 public class OrderDetailsFormController {
-    private final CustomerModel customerModel = new CustomerModel();
+    /*private final CustomerModel customerModel = new CustomerModel();
     private final ProductModel itemModel = new ProductModel();
-    private final OrdersModel orderModel = new OrdersModel();
+    private final OrdersModel orderModel = new OrdersModel();*/
+
+    CustomerDAO customerDAO=new CustomerModel();
+    ProductDAO productDAO=new ProductModel();
+
+    OrdersDAO ordersDAO=new OrdersModel();
     private final ObservableList<CartTm> obList = FXCollections.observableArrayList();
 
     @FXML
@@ -175,7 +184,9 @@ public class OrderDetailsFormController {
     }
     private void generateNextOrderId() {
         try {
-            String orderId = orderModel.generateNextOrderId();
+            //String orderId = orderModel.generateNextOrderId();
+
+            String orderId = ordersDAO.generateNextOrderId();
             lblOrderId.setText(orderId);
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -184,7 +195,9 @@ public class OrderDetailsFormController {
     private void loadItemCodes() {
         ObservableList<String> obList = FXCollections.observableArrayList();
         try {
-            List<ProductDto> itemList = itemModel.loadAllProduct();
+           // List<ProductDto> itemList = itemModel.loadAllProduct();
+
+            List<ProductDto> itemList = productDAO.loadAllProduct();
 
             for (ProductDto  itemDto : itemList) {
                 obList.add(itemDto.getProduct_ID());
@@ -199,7 +212,9 @@ public class OrderDetailsFormController {
     private void loadCustomerIds() {
         ObservableList<String> obList = FXCollections.observableArrayList();
         try {
-            List<CustomerTm> cusList = customerModel.loadAllCustomers();
+           // List<CustomerTm> cusList = customerModel.loadAllCustomers();
+
+            List<CustomerTm> cusList = customerDAO.loadAllCustomers();
 
             for (CustomerTm Tm : cusList) {
                 obList.add(Tm.getC_ID());
@@ -415,7 +430,7 @@ public class OrderDetailsFormController {
             tmList.add(cartTm);
         }
 
-        var placeOrderDto = new PlaceOrderDto(
+        PlaceOrderDto placeOrderDto = new PlaceOrderDto(
                 orderId,
                 cusId,
                 date,
@@ -478,7 +493,9 @@ public class OrderDetailsFormController {
     @FXML
     void cmbCustomerOnAction(ActionEvent event) throws SQLException {
         String id = cmbCustomerId.getValue();
-        CustomerDto dto = customerModel.searchCustomer(id);
+       // CustomerDto dto = customerModel.searchCustomer(id);
+
+        CustomerDto dto = customerDAO.searchCustomer(id);
         lblCustomerName.setText(dto.getName());
 
     }
@@ -490,7 +507,9 @@ public class OrderDetailsFormController {
         txtQty.requestFocus();
 
         try {
-           ProductDto  dto = itemModel.searchProduct(code);
+          // ProductDto  dto = itemModel.searchProduct(code);
+
+            ProductDto  dto = productDAO.search(code);
 
             lblDescription.setText(dto.getDescription());
             lblUnitPrice.setText(String.valueOf(dto.getPrice()));

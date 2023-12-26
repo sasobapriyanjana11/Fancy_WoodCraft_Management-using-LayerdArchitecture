@@ -1,7 +1,9 @@
 package lk.ijse.Layerd.dao.custom.Impl;
 
-import lk.ijse.FancyWoodCraftManagement.db.DbConnection;
-import lk.ijse.FancyWoodCraftManagement.dto.tm.CartTm;
+
+import lk.ijse.Layerd.dao.sqlUtil;
+import lk.ijse.Layerd.db.DbConnection;
+import lk.ijse.Layerd.view.tdm.CartTm;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -19,7 +21,7 @@ public class OrderDetailModel {
     }
 
     private boolean saveOrderDetail(String orderId, CartTm cartTm) throws SQLException {
-        Connection connection = DbConnection.getInstance().getConnection();
+       /* Connection connection = DbConnection.getInstance().getConnection();
 
         String sql = "INSERT INTO Order_Detail VALUES(?, ?, ?, ?)";
         PreparedStatement pstm = connection.prepareStatement(sql);
@@ -28,10 +30,9 @@ public class OrderDetailModel {
         pstm.setInt(3, cartTm.getQty());
         pstm.setDouble(4, cartTm.getUnitPrice());
 
-        return pstm.executeUpdate() > 0;
+        return pstm.executeUpdate() > 0;*/
+
+        return sqlUtil.execute("INSERT INTO Order_Detail VALUES(?, ?, ?, ?)",orderId,cartTm.getCode(),cartTm.getQty(),cartTm.getUnitPrice());
     }
-
-
-
 
 }

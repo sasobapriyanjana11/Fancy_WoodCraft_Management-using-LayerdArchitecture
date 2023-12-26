@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.effect.Glow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="ordersPane" prefHeight="768.0" prefWidth="1244.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.Layerd.Controller.OrdersFormController">
+   <children>
+      <ImageView fitHeight="768.0" fitWidth="1244.0">
+         <image>
+            <Image url="@../assests/ggg.jpeg" />
+         </image>
+      </ImageView>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#b07c38d6" height="768.0" stroke="BLACK" strokeType="INSIDE" width="229.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#b07c38d6" height="735.0" layoutX="277.0" layoutY="17.0" opacity="0.94" stroke="#e58800" strokeType="INSIDE" style="-fx-background-color: #8f2806;" width="923.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a68f6a" height="299.0" layoutX="344.0" layoutY="111.0" stroke="BLACK" strokeType="INSIDE" width="789.0" />
+      <JFXButton fx:id="btnDashboard" layoutX="22.0" layoutY="132.0" onAction="#btnDashboardOnAction" prefHeight="39.0" prefWidth="180.0" style="-fx-background-color: white;" text="Dashboard" />
+      <JFXButton fx:id="btnSave" layoutX="1019.0" layoutY="149.0" onAction="#btnSaveOnAction" prefHeight="38.0" prefWidth="86.0" style="-fx-background-color: #8f2806;" text="Save" textFill="#ffea00" />
+      <JFXButton fx:id="btnProduct" layoutX="22.0" layoutY="184.0" onAction="#btnProductOnAction" prefHeight="39.0" prefWidth="180.0" style="-fx-background-color: white;" text="Product" />
+      <JFXButton fx:id="btnCustomer" layoutX="22.0" layoutY="238.0" onAction="#btnCustomerOnAction" prefHeight="39.0" prefWidth="180.0" style="-fx-background-color: white;" text="Customer" />
+      <JFXButton fx:id="btnSupplier" layoutX="22.0" layoutY="293.0" onAction="#btnSupplierOnAction" prefHeight="39.0" prefWidth="180.0" style="-fx-background-color: white;" text="Supplier" />
+      <JFXButton fx:id="btnOrders" buttonType="RAISED" layoutX="20.0" layoutY="344.0" onAction="#btnOrdersOnAction" prefHeight="39.0" prefWidth="180.0" style="-fx-background-color: #8f2806;" text="Orders" textFill="WHITE">
+         <effect>
+            <Glow level="0.48" />
+         </effect></JFXButton>
+      <JFXButton fx:id="btnOrderDetails" layoutX="22.0" layoutY="397.0" onAction="#btnOrderDetailsOnAction" prefHeight="39.0" prefWidth="180.0" style="-fx-background-color: white;" text="Order Details" />
+      <JFXButton fx:id="btnRawMaterials" layoutX="22.0" layoutY="450.0" onAction="#btnRawMaterialsOnAction" prefHeight="39.0" prefWidth="180.0" style="-fx-background-color: white;" text="Raw Materials" />
+      <JFXButton fx:id="btnDelivery" layoutX="22.0" layoutY="506.0" onAction="#btnDeliveryOnAction" prefHeight="39.0" prefWidth="180.0" style="-fx-background-color: white;" text="Delivery" />
+      <JFXButton layoutX="25.0" layoutY="696.0" prefHeight="39.0" prefWidth="180.0" style="-fx-background-color: white;" text="Log out" />
+      <JFXButton fx:id="btnEmployee" layoutX="22.0" layoutY="566.0" onAction="#btnEmployeeOnAction" prefHeight="39.0" prefWidth="180.0" style="-fx-background-color: white;" text="Employee" />
+      <JFXButton fx:id="btnEmployeeSalary" layoutX="24.0" layoutY="627.0" onAction="#btnEmployeeSalaryOnAction" prefHeight="39.0" prefWidth="180.0" style="-fx-background-color: white;" text="Employee Salary" />
+      <ImageView fitHeight="93.0" fitWidth="111.0" layoutX="58.0" layoutY="24.0">
+         <image>
+            <Image url="@../assests/360_F_369207830_BM5cj4MLeskoR5QmJzzmFbaDT2YdnbZp.jpg" />
+         </image>
+         <effect>
+            <DropShadow />
+         </effect>
+      </ImageView>
+      <ImageView layoutX="1019.0" layoutY="155.0">
+         <image>
+            <Image url="@../icon/save.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="22.0" fitWidth="22.0" layoutX="31.0" layoutY="305.0">
+         <image>
+            <Image url="@../icon/icons8-supplier-50.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="22.0" fitWidth="22.0" layoutX="31.0" layoutY="635.0">
+         <image>
+            <Image url="@../icon/icons8-salary-50.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="22.0" fitWidth="22.0" layoutX="31.0" layoutY="459.0">
+         <image>
+            <Image url="@../icon/icons8-materials-50.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="22.0" fitWidth="22.0" layoutX="31.0" layoutY="705.0">
+         <image>
+            <Image url="@../icon/icons8-log-out-60.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="22.0" fitWidth="22.0" layoutX="31.0" layoutY="196.0">
+         <image>
+            <Image url="@../icon/icons8-item-30.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="22.0" fitWidth="22.0" layoutX="31.0" layoutY="352.0">
+         <image>
+            <Image url="@../icon/icons8-gifts-32.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="22.0" fitWidth="22.0" layoutX="31.0" layoutY="575.0">
+         <image>
+            <Image url="@../icon/icons8-employee-50.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="22.0" fitWidth="22.0" layoutX="31.0" layoutY="515.0">
+         <image>
+            <Image url="@../icon/icons8-delivery-30.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="22.0" fitWidth="22.0" layoutX="31.0" layoutY="144.0">
+         <image>
+            <Image url="@../icon/icons8-dashboard-50.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="22.0" fitWidth="22.0" layoutX="31.0" layoutY="250.0">
+         <image>
+            <Image url="@../icon/icons8-customer-64.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="22.0" fitWidth="22.0" layoutX="31.0" layoutY="409.0">
+         <image>
+            <Image url="@../icon/icons8-maximum-order-32.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="351.0" layoutY="62.0" prefHeight="38.0" prefWidth="222.0" text="Orders Manage" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="356.0" layoutY="146.0" prefHeight="21.0" prefWidth="94.0" text="Order_ID :">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="365.0" layoutY="239.0" prefHeight="21.0" prefWidth="86.0" text="C_ID   :  ">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="365.0" layoutY="342.0" prefHeight="21.0" prefWidth="86.0" text="Date  :">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtOrder_ID" layoutX="462.0" layoutY="132.0" onAction="#txtOrder_IDOnAction" prefHeight="46.0" prefWidth="303.0" promptText="Order_ID" />
+      <DatePicker fx:id="txtDate" layoutX="462.0" layoutY="329.0" onAction="#txtDateOnAction" prefHeight="46.0" prefWidth="303.0" promptText="DD|MM|YYYY" />
+      <JFXButton fx:id="btnUpdate" layoutX="1019.0" layoutY="199.0" onAction="#btnUpdateOnAction" prefHeight="38.0" prefWidth="86.0" style="-fx-background-color: #8f2806;" text="     Update" textFill="#ffea00" />
+      <JFXButton fx:id="btnDelete" layoutX="1019.0" layoutY="249.0" onAction="#btnDeleteOnAction" prefHeight="38.0" prefWidth="86.0" style="-fx-background-color: #8f2806;" text="   Delete" textFill="#ffea00" />
+      <JFXButton fx:id="btnClear" layoutX="1019.0" layoutY="301.0" onAction="#btnClearOnAction" prefHeight="38.0" prefWidth="86.0" style="-fx-background-color: #8f2806;" text="Clear" textFill="#ffea00">
+         <graphic>
+            <ImageView fitHeight="24.0" fitWidth="22.0">
+               <image>
+                  <Image url="@../icon/icons8-clear-50.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </JFXButton>
+      <ImageView layoutX="1019.0" layoutY="256.0">
+         <image>
+            <Image url="@../icon/icons8-delete-24.png" />
+         </image>
+      </ImageView>
+      <JFXButton fx:id="btnBack" layoutX="1019.0" layoutY="685.0" onAction="#btnBackOnAction" prefHeight="38.0" prefWidth="86.0" style="-fx-background-color: #f2cf9a;" text="Back" />
+      <TableView fx:id="tableOrders" layoutX="344.0" layoutY="436.0" prefHeight="237.0" prefWidth="789.0">
+        <columns>
+          <TableColumn fx:id="columnOrder_ID" prefWidth="243.0" text="Order_ID" />
+          <TableColumn fx:id="columnC_ID" prefWidth="264.0" text="C_ID" />
+            <TableColumn fx:id="columnDate" prefWidth="281.0" text="Date" />
+        </columns>
+      </TableView>
+      <ComboBox fx:id="cmbC_ID" layoutX="462.0" layoutY="226.0" onAction="#cmbC_IDOnAction" prefHeight="46.0" prefWidth="303.0" promptText="C_ID" style="-fx-background-color: white;" />
+      <JFXButton fx:id="btnNew" buttonType="RAISED" layoutX="770.0" layoutY="253.0" onAction="#btnNewOnAction" prefHeight="38.0" prefWidth="80.0" style="-fx-background-color: brown;" text="     New" textFill="#ffca00" />
+      <ImageView layoutX="776.0" layoutY="260.0">
+         <image>
+            <Image url="@../icon/new.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="22.0" fitWidth="22.0" layoutX="1020.0" layoutY="693.0">
+         <image>
+            <Image url="@../icon/icons8-back-24.png" />
+         </image>
+      </ImageView>
+      <ImageView layoutX="1019.0" layoutY="206.0">
+         <image>
+            <Image url="@../icon/update.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>

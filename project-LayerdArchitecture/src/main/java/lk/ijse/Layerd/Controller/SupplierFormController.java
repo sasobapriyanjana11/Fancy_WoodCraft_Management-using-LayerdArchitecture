@@ -12,10 +12,12 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import lk.ijse.FancyWoodCraftManagement.dto.SupplierDto;
-import lk.ijse.FancyWoodCraftManagement.model.EmployeeModel;
-import lk.ijse.FancyWoodCraftManagement.model.OrderDetailModel;
-import lk.ijse.FancyWoodCraftManagement.model.SupplierModel;
+import lk.ijse.Layerd.dao.custom.Impl.EmployeeModel;
+import lk.ijse.Layerd.dao.custom.Impl.OrderDetailModel;
+import lk.ijse.Layerd.dao.custom.Impl.SupplierModel;
+import lk.ijse.Layerd.dao.custom.SupplierDAO;
+import lk.ijse.Layerd.dto.SupplierDto;
+
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -113,6 +115,8 @@ public class SupplierFormController {
     private  final EmployeeModel employeeModel=new EmployeeModel();
     private final OrderDetailModel orderDetailModel=new OrderDetailModel();
 
+    SupplierDAO supplierDAO=new SupplierModel();
+
     @FXML
     void btnBackOnAction(ActionEvent event) throws IOException {
         Parent root= FXMLLoader.load(this.getClass().getResource("/view/DashBoardForm.fxml"));
@@ -168,10 +172,12 @@ public class SupplierFormController {
     @FXML
     void btnDeleteOnAction(ActionEvent event) {
         String Supplier_ID= txtSupplier_ID.getText();
-        var model=new SupplierModel();
+      //  var model=new SupplierModel();
 
         try{
-            boolean isDeleted= model.deleteSupplier(Supplier_ID);
+            //boolean isDeleted= model.deleteSupplier(Supplier_ID);
+
+            boolean isDeleted= supplierDAO.delete(Supplier_ID);
             if(isDeleted){
                 tableSupplier.refresh();
                 new Alert(Alert.AlertType.CONFIRMATION,"Supplier deleted successfully").show();
@@ -310,12 +316,14 @@ public class SupplierFormController {
     }
 
     private void loadAllSuppliers() {
-        var model = new SupplierModel();
+       // var model = new SupplierModel();
 
         ObservableList<SupplierDto> obList = FXCollections.observableArrayList();
 
         try {
-            List<SupplierDto> dtoList = model.getAllSuppliers();
+           // List<SupplierDto> dtoList = model.getAllSuppliers();
+
+            List<SupplierDto> dtoList = supplierDAO.getAll();
 
             for(SupplierDto dto : dtoList) {
                 obList.add(
@@ -346,10 +354,12 @@ public class SupplierFormController {
             String Tel = txtTel.getText();
 
             var dto = new SupplierDto(Supplier_ID, name, Address, Tel);
-            var model = new SupplierModel();
+           // var model = new SupplierModel();
 
             try {
-                boolean isSaved = model.saveSupplier(dto);
+               // boolean isSaved = model.saveSupplier(dto);
+
+                boolean isSaved =supplierDAO.save(dto);
                 if (isSaved) {
                     new Alert(Alert.AlertType.CONFIRMATION, "Supplier Saved").showAndWait();
                     /////
@@ -423,9 +433,11 @@ public class SupplierFormController {
             String address = txtAddress.getText();
 
             var dto = new SupplierDto(Supplier_ID, name, address, tel);
-            var model = new SupplierModel();
+            //var model = new SupplierModel();
             try {
-                boolean isUpdated = model.updateSupplier(dto);
+               // boolean isUpdated = model.updateSupplier(dto);
+
+                boolean isUpdated = supplierDAO.update(dto);
                 if (isUpdated) {
                     new Alert(Alert.AlertType.CONFIRMATION, "Supplier is Updated").showAndWait();
 
@@ -473,9 +485,11 @@ public class SupplierFormController {
     void txtSupplier_IDOnAction(ActionEvent event) {
         String id = txtSupplier_ID.getText();
 
-        var model = new SupplierModel();
+       // var model = new SupplierModel();
         try {
-           SupplierDto dto = model.searchSupplier(id);
+         //  SupplierDto dto = model.searchSupplier(id);
+
+            SupplierDto dto = supplierDAO.search(id);
 
             if(dto != null) {
                 fillFields(dto);

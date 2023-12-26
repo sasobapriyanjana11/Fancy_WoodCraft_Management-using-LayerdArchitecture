@@ -17,13 +17,18 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-import lk.ijse.FancyWoodCraftManagement.dto.ProductDto;
-import lk.ijse.FancyWoodCraftManagement.dto.SupplierDto;
-import lk.ijse.FancyWoodCraftManagement.dto.tm.productTm;
-import lk.ijse.FancyWoodCraftManagement.model.EmployeeModel;
-import lk.ijse.FancyWoodCraftManagement.model.OrdersModel;
-import lk.ijse.FancyWoodCraftManagement.model.ProductModel;
-import lk.ijse.FancyWoodCraftManagement.model.SupplierModel;
+
+import lk.ijse.Layerd.dao.custom.EmployeeDAO;
+import lk.ijse.Layerd.dao.custom.Impl.EmployeeModel;
+import lk.ijse.Layerd.dao.custom.Impl.OrdersModel;
+import lk.ijse.Layerd.dao.custom.Impl.ProductModel;
+import lk.ijse.Layerd.dao.custom.Impl.SupplierModel;
+import lk.ijse.Layerd.dao.custom.OrdersDAO;
+import lk.ijse.Layerd.dao.custom.ProductDAO;
+import lk.ijse.Layerd.dao.custom.SupplierDAO;
+import lk.ijse.Layerd.dto.ProductDto;
+import lk.ijse.Layerd.dto.SupplierDto;
+import lk.ijse.Layerd.view.tdm.productTm;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -100,10 +105,15 @@ public class DashBoardFormController {
     @FXML
     private TextField txtSearch;
 
-    private final EmployeeModel employeeModel=new EmployeeModel();
+ /*   private final EmployeeModel employeeModel=new EmployeeModel();
     private final SupplierModel supplierModel=new SupplierModel();
+    private final OrdersModel ordersModel=new OrdersModel();*/
 
-    private final OrdersModel ordersModel=new OrdersModel();
+    SupplierDAO supplierDAO=new SupplierModel();
+    OrdersDAO ordersDAO=new OrdersModel();
+    EmployeeDAO employeeDAO=new EmployeeModel();
+
+    ProductDAO productDAO=new ProductModel();
 
 
 
@@ -154,12 +164,14 @@ public class DashBoardFormController {
     }
 
     private void viewProductTable() {
-        var model = new ProductModel();
+       // var model = new ProductModel();
 
         ObservableList<productTm> obList = FXCollections.observableArrayList();
 
         try {
-            List<ProductDto> dtoList = model.getAllProduct();
+           // List<ProductDto> dtoList = model.getAllProduct();
+
+            List<ProductDto> dtoList = productDAO.getAll();
 
             for(ProductDto dto : dtoList) {
                 obList.add(
@@ -187,12 +199,14 @@ public class DashBoardFormController {
     }
 
     private void viewSupplierTable() {
-        var model = new SupplierModel();
+       // var model = new SupplierModel();
 
         ObservableList<SupplierDto> obList = FXCollections.observableArrayList();
 
         try {
-            List<SupplierDto> dtoList = model.getAllSuppliers();
+         //   List<SupplierDto> dtoList = model.getAllSuppliers();
+
+            List<SupplierDto> dtoList = supplierDAO.getAll();
 
             for(SupplierDto dto : dtoList) {
                 obList.add(
@@ -212,13 +226,17 @@ public class DashBoardFormController {
     }
 
     private void countDailyOrders() throws SQLException {
-        String count2= String.valueOf(ordersModel.countDailyOrders());
+      //  String count2= String.valueOf(ordersModel.countDailyOrders());
+
+        String count2= String.valueOf(ordersDAO.countDailyOrders());
         this.lblTotal2.setText(count2);
 
     }
 
     private void countEmployeeFrame() throws SQLException {
-        String count1= String.valueOf(employeeModel.countEmployee());
+        //String count1= String.valueOf(employeeModel.countEmployee());
+
+        String count1= String.valueOf(employeeDAO.countEmployee());
         this.lblTotal1.setText(count1);
     }
 

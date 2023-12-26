@@ -13,7 +13,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import lk.ijse.FancyWoodCraftManagement.model.LoginModel;
+import lk.ijse.Layerd.dao.custom.Impl.LoginModel;
+
 
 import java.io.IOException;
 import java.sql.SQLException;

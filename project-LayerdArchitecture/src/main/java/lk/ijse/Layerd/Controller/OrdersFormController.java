@@ -12,10 +12,12 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import lk.ijse.FancyWoodCraftManagement.dto.CustomerDto;
-import lk.ijse.FancyWoodCraftManagement.dto.tm.OrdersTm;
-import lk.ijse.FancyWoodCraftManagement.model.CustomerModel;
-import lk.ijse.FancyWoodCraftManagement.model.OrdersModel;
+import lk.ijse.Layerd.dao.custom.CustomerDAO;
+import lk.ijse.Layerd.dao.custom.OrdersDAO;
+import lk.ijse.Layerd.dto.CustomerDto;
+import lk.ijse.Layerd.view.tdm.OrdersTm;
+import lk.ijse.Layerd.dao.custom.Impl.CustomerModel;
+import lk.ijse.Layerd.dao.custom.Impl.OrdersModel;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -111,7 +113,10 @@ public class OrdersFormController {
     @FXML
     private JFXButton btnNew;
 
-    private final CustomerModel customerModel=new CustomerModel();
+    //private final CustomerModel customerModel=new CustomerModel();
+
+    CustomerDAO customerDAO=new CustomerModel();
+    OrdersDAO ordersDAO=new OrdersModel();
 
     @FXML
     void btnBackOnAction(ActionEvent event) throws IOException {
@@ -167,10 +172,11 @@ public class OrdersFormController {
     @FXML
     void btnDeleteOnAction(ActionEvent event) {
         String Order_ID= txtOrder_ID.getText();
-        var model=new OrdersModel();
+       // var model=new OrdersModel();
 
         try{
-            boolean isDeleted= model.deleteOrders(Order_ID);
+           // boolean isDeleted= model.deleteOrders(Order_ID);
+            boolean isDeleted=ordersDAO.delete(Order_ID);
             if(isDeleted){
                 tableOrders.refresh();
                 new Alert(Alert.AlertType.CONFIRMATION,"order is   deleted ").show();
@@ -285,7 +291,9 @@ public class OrdersFormController {
     private void loadAllC_ID() {
         ObservableList<String> obList = FXCollections.observableArrayList();
         try {
-            List<CustomerDto> cusList = customerModel.getAllCustomers();
+          //  List<CustomerDto> cusList = customerModel.getAllCustomers();
+
+            List<CustomerDto> cusList = customerDAO.getAllCustomers();
 
             for (CustomerDto dto : cusList) {
                 obList.add(dto.getC_ID());
@@ -303,13 +311,14 @@ public class OrdersFormController {
     }
 
     private void loadAllOrders() {
-        var model = new OrdersModel();
+      //  var model = new OrdersModel();
 
         ObservableList<OrdersTm> obList = FXCollections.observableArrayList();
 
         try {
-            List<OrdersTm> dtoList = model.getAllOrders();
+           // List<OrdersTm> dtoList = model.getAllOrders();
 
+            List<OrdersTm> dtoList = ordersDAO.getAll();
             for(OrdersTm Tm: dtoList) {
                 obList.add(
                         new OrdersTm(
@@ -336,9 +345,11 @@ public class OrdersFormController {
 
             var Tm = new OrdersTm(Order_ID,C_ID,date);
 
-            var model = new OrdersModel();
+           // var model = new OrdersModel();
             try {
-                boolean isSaved = model.saveOrders(Tm);
+              //  boolean isSaved = model.saveOrders(Tm);
+                boolean isSaved=ordersDAO.save(Tm);
+
                 if (isSaved) {
                     new Alert(Alert.AlertType.CONFIRMATION, "Order saved ").showAndWait();
 
@@ -404,10 +415,12 @@ public class OrdersFormController {
 
             var Tm = new OrdersTm(Order_ID,C_ID,date);
 
-            var model = new OrdersModel();
+           // var model = new OrdersModel();
 
             try {
-                boolean isUpdated = model.updateOrders(Tm);
+                // boolean isUpdated = model.updateOrders(Tm);
+
+                boolean isUpdated=ordersDAO.update(Tm);
                 if (isUpdated) {
                     new Alert(Alert.AlertType.CONFIRMATION, "order Updated").showAndWait();
                     ////
@@ -444,9 +457,10 @@ public class OrdersFormController {
     void txtOrder_IDOnAction(ActionEvent event) {
         String id = txtOrder_ID.getText();
 
-        var model = new OrdersModel();
+       // var model = new OrdersModel();
         try {
-            OrdersTm  Tm = model.searchOrder(id);
+           // OrdersTm  Tm = model.searchOrder(id);
+            OrdersTm  Tm = ordersDAO.search(id);
 
             if(Tm != null) {
                 fillFields(Tm);

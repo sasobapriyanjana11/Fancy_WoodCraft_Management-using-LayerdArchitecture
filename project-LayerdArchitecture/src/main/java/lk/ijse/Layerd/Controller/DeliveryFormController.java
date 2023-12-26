@@ -12,13 +12,17 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import lk.ijse.FancyWoodCraftManagement.dto.DeliveryDto;
-import lk.ijse.FancyWoodCraftManagement.dto.EmployeeDto;
-import lk.ijse.FancyWoodCraftManagement.dto.OrderDto;
-import lk.ijse.FancyWoodCraftManagement.dto.tm.DeliveryTm;
-import lk.ijse.FancyWoodCraftManagement.model.DeliveryModel;
-import lk.ijse.FancyWoodCraftManagement.model.EmployeeModel;
-import lk.ijse.FancyWoodCraftManagement.model.OrdersModel;
+
+import lk.ijse.Layerd.dao.custom.DeliveryDAO;
+import lk.ijse.Layerd.dao.custom.EmployeeDAO;
+import lk.ijse.Layerd.dao.custom.Impl.DeliveryModel;
+import lk.ijse.Layerd.dao.custom.Impl.EmployeeModel;
+import lk.ijse.Layerd.dao.custom.Impl.OrderDetailModel;
+import lk.ijse.Layerd.dao.custom.Impl.OrdersModel;
+import lk.ijse.Layerd.dto.DeliveryDto;
+import lk.ijse.Layerd.dto.EmployeeDto;
+import lk.ijse.Layerd.dto.OrderDto;
+import lk.ijse.Layerd.view.tdm.DeliveryTm;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -124,9 +128,12 @@ public class DeliveryFormController {
     private ComboBox<String> cmbOrder_ID;
 
     private final EmployeeModel employeeModel=new EmployeeModel();
-  //  private  final OrderDetailModel orderDetailModel=new OrderDetailModel();
+   private  final OrderDetailModel orderDetailModel=new OrderDetailModel();
+      EmployeeDAO employeeDAO=new EmployeeModel();
+   private final OrdersModel ordersModel=new OrdersModel();
 
-    private final OrdersModel ordersModel=new OrdersModel();
+
+    DeliveryDAO deliveryDAO=new lk.ijse.Layerd.dao.custom.Impl.DeliveryModel();
 
     @FXML
     void btnBackOnAction(ActionEvent event) throws IOException {
@@ -181,9 +188,11 @@ public class DeliveryFormController {
     @FXML
     void btnDeleteOnAction(ActionEvent event) {
         String Delivery_ID= txtDelivery_ID.getText();
-        var model=new DeliveryModel();
+       // var model=new DeliveryModel();
         try{
-            boolean isDeleted= model.deleteDelivery(Delivery_ID);
+           // boolean isDeleted= model.deleteDelivery(Delivery_ID);
+
+            boolean isDeleted=deliveryDAO.delete(Delivery_ID);
             if(isDeleted){
                 new Alert(Alert.AlertType.CONFIRMATION,"Delivery details deleted").show();
                 tableDelivery.refresh();
@@ -302,6 +311,7 @@ public class DeliveryFormController {
         try {
             List<OrderDto> cusList = ordersModel.loadAllOrder_ID();
 
+
             for (OrderDto dto : cusList) {
                 obList.add(dto.getOrder_ID());
             }
@@ -315,7 +325,7 @@ public class DeliveryFormController {
     private void loadAllE_ID() {
         ObservableList<String> obList = FXCollections.observableArrayList();
         try {
-            List<EmployeeDto> cusList = employeeModel.loadAllEmployee();
+            List<EmployeeDto> cusList = employeeDAO.loadAllEmployee();
 
             for (EmployeeDto dto : cusList) {
                 obList.add(dto.getE_ID());
@@ -341,7 +351,8 @@ public class DeliveryFormController {
         ObservableList<DeliveryTm> obList = FXCollections.observableArrayList();
 
         try {
-            List<DeliveryDto> dtoList = model.getAllDelivery();
+           // List<DeliveryDto> dtoList = model.getAllDelivery();
+            List<DeliveryDto> dtoList = deliveryDAO.getAll();
 
             for(DeliveryDto dto: dtoList) {
                 obList.add(
@@ -375,9 +386,11 @@ public class DeliveryFormController {
 
 
            var dto = new DeliveryDto(Delivery_ID,Order_ID,DeliveryStatus,Location,E_ID,Tel);
-           var model = new DeliveryModel();
+          // var model = new DeliveryModel();
            try {
-               boolean isSaved = model.saveDeliveryDetails(dto);
+              // boolean isSaved = model.saveDeliveryDetails(dto);
+
+               boolean isSaved=deliveryDAO.save(dto);
                if (isSaved) {
                    new Alert(Alert.AlertType.CONFIRMATION, "Delivery details are saved successfully").showAndWait();
 
@@ -466,9 +479,11 @@ public class DeliveryFormController {
             String deliveryStatus = txtDeliveryStatus.getText();
 
             var dto = new DeliveryDto(Delivery_ID,Order_ID,deliveryStatus,Location,E_ID,Tel);
-            var model = new DeliveryModel();
+           // var model = new DeliveryModel();
             try {
-                boolean isUpdated = model.updateDeliveryDetails(dto);
+               // boolean isUpdated = model.updateDeliveryDetails(dto);
+
+                boolean isUpdated=deliveryDAO.update(dto);
                 if (isUpdated) {
                     new Alert(Alert.AlertType.CONFIRMATION, "Delivery details are updated").showAndWait();
 
@@ -509,7 +524,8 @@ public class DeliveryFormController {
 
         var model = new DeliveryModel();
         try {
-            DeliveryDto dto = model.searchDelivery(id);
+         //   DeliveryDto dto = model.searchDelivery(id);
+            DeliveryDto dto=deliveryDAO.search(id);
 
             if(dto != null) {
                 fillFields(dto);

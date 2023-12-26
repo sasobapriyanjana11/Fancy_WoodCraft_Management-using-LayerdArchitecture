@@ -1,8 +1,9 @@
 package lk.ijse.Layerd.dao.custom.Impl;
 
 import javafx.scene.control.Alert;
-import lk.ijse.FancyWoodCraftManagement.db.DbConnection;
-import lk.ijse.FancyWoodCraftManagement.dto.tm.ForgetPasswordTm;
+import lk.ijse.Layerd.db.DbConnection;
+import lk.ijse.Layerd.view.tdm.ForgetPasswordTm;
+
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -16,7 +17,8 @@ public class ForgetPasswordModel {
         String sql="SELECT U_ID,password FROM UserManager WHERE U_ID=?";
 
         PreparedStatement preparedStatement= connection.prepareStatement(sql);
-        preparedStatement.setString(1,"U_ID");
+        //"U_ID"
+        preparedStatement.setString(1,U_ID);
         preparedStatement.setString(2,"password");
 
         ResultSet resultSet =preparedStatement.executeQuery();

@@ -1,7 +1,9 @@
 package lk.ijse.Layerd.dao.custom.Impl;
 
-import lk.ijse.FancyWoodCraftManagement.db.DbConnection;
-import lk.ijse.FancyWoodCraftManagement.dto.ESalaryDto;
+import lk.ijse.Layerd.dao.custom.EmployeeSalaryDAO;
+import lk.ijse.Layerd.dao.sqlUtil;
+import lk.ijse.Layerd.db.DbConnection;
+import lk.ijse.Layerd.dto.ESalaryDto;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -10,10 +12,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EmployeeSalaryModel {
-
-    public boolean saveESalaryDetails(final ESalaryDto dto) throws SQLException {
-        Connection connection = DbConnection.getInstance().getConnection();
+public class EmployeeSalaryModel implements EmployeeSalaryDAO {
+@Override
+    public boolean save(final ESalaryDto dto) throws SQLException {
+       /* Connection connection = DbConnection.getInstance().getConnection();
 
         String sql = "INSERT INTO Salary VALUES(?,?,?,?,?)";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -24,11 +26,12 @@ public class EmployeeSalaryModel {
         preparedStatement.setString(5, dto.getDate());
 
         boolean isSaved = preparedStatement.executeUpdate() > 0;
-        return isSaved;
+        return isSaved;*/
+        return sqlUtil.execute("INSERT INTO Salary VALUES(?,?,?,?,?)",dto.getSalary_ID(),dto.getE_ID(),dto.getTel(),dto.getPayment(),dto.getDate());
     }
-
-    public boolean updateESalaryDetails(final ESalaryDto dto) throws SQLException {
-        Connection connection = DbConnection.getInstance().getConnection();
+ @Override
+    public boolean update(final ESalaryDto dto) throws SQLException {
+      /*  Connection connection = DbConnection.getInstance().getConnection();
 
         String sql = "UPDATE Salary SET E_ID=?,tel=?,date=?,Payment=? WHERE Salary_ID=?";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -39,28 +42,32 @@ public class EmployeeSalaryModel {
         preparedStatement.setString(5, dto.getSalary_ID());
 
         boolean isUpdated = preparedStatement.executeUpdate() > 0;
-        return isUpdated;
+        return isUpdated;*/
+        return sqlUtil.execute("UPDATE Salary SET E_ID=?,tel=?,date=?,Payment=? WHERE Salary_ID=?",dto.getE_ID(),dto.getTel(),dto.getDate(),dto.getPayment(), dto.getSalary_ID());
     }
-    public boolean deleteESalaryDetails(String Salary_ID) throws SQLException {
-        Connection connection=DbConnection.getInstance().getConnection();
+@Override
+    public boolean delete(String Salary_ID) throws SQLException {
+       /* Connection connection=DbConnection.getInstance().getConnection();
 
         String sql="DELETE  FROM Salary WHERE Salary_ID=?";
         PreparedStatement preparedStatement= connection.prepareStatement(sql);
         preparedStatement.setString(1,Salary_ID);
 
         boolean isDeleted=preparedStatement.executeUpdate()>0;
-        return  isDeleted;
+        return  isDeleted;*/
+        return sqlUtil.execute("DELETE  FROM Salary WHERE Salary_ID=?",Salary_ID);
 
     }
-
-    public ESalaryDto searchESalaryDetails(String id) throws SQLException {
-        Connection connection = DbConnection.getInstance().getConnection();
+ @Override
+    public ESalaryDto search(String id) throws SQLException {
+       /* Connection connection = DbConnection.getInstance().getConnection();
 
         String sql = "SELECT * FROM Salary WHERE Salary_ID = ?";
         PreparedStatement pstm = connection.prepareStatement(sql);
         pstm.setString(1, id);
 
-        ResultSet resultSet = pstm.executeQuery();
+        ResultSet resultSet = pstm.executeQuery();*/
+        ResultSet resultSet=sqlUtil.execute("SELECT * FROM Salary WHERE Salary_ID = ?",id);
 
         ESalaryDto dto = null;
 
@@ -76,16 +83,17 @@ public class EmployeeSalaryModel {
 
         return dto;
     }
-
-    public List<ESalaryDto> getAllESalaryDetails() throws SQLException {
-        Connection connection = DbConnection.getInstance().getConnection();
+ @Override
+    public List<ESalaryDto> getAll() throws SQLException {
+       /* Connection connection = DbConnection.getInstance().getConnection();
 
         String sql = "SELECT * FROM Salary";
-        PreparedStatement pstm = connection.prepareStatement(sql);
+        PreparedStatement pstm = connection.prepareStatement(sql);*/
 
         List<ESalaryDto> dtoList = new ArrayList<>();
 
-        ResultSet resultSet = pstm.executeQuery();
+       // ResultSet resultSet = pstm.executeQuery();
+        ResultSet resultSet=sqlUtil.execute("SELECT * FROM Salary");
 
         while (resultSet.next()) {
             String ES_id = resultSet.getString(1);

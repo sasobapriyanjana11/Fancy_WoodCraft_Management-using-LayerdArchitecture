@@ -1,8 +1,7 @@
 package lk.ijse.Layerd.dao.custom.Impl;
 
-import lk.ijse.FancyWoodCraftManagement.db.DbConnection;
-import lk.ijse.FancyWoodCraftManagement.dto.PlaceOrderDto;
-
+import lk.ijse.Layerd.db.DbConnection;
+import lk.ijse.Layerd.dto.PlaceOrderDto;
 import java.sql.Connection;
 import java.sql.SQLException;
 

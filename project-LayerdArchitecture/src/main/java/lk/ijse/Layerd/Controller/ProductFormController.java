@@ -15,9 +15,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import lk.ijse.FancyWoodCraftManagement.dto.ProductDto;
-import lk.ijse.FancyWoodCraftManagement.dto.tm.productTm;
-import lk.ijse.FancyWoodCraftManagement.model.ProductModel;
+import lk.ijse.Layerd.dao.custom.Impl.ProductModel;
+import lk.ijse.Layerd.dao.custom.ProductDAO;
+import lk.ijse.Layerd.dto.ProductDto;
+import lk.ijse.Layerd.view.tdm.productTm;
+
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -114,7 +116,7 @@ public class ProductFormController {
     @FXML
     private TextField txtQty;
 
-
+    ProductDAO productDAO=new ProductModel();
     @FXML
     void btnBackOnAction(ActionEvent event) throws IOException {
         Parent root= FXMLLoader.load(this.getClass().getResource("/view/DashBoardForm.fxml"));
@@ -172,10 +174,12 @@ public class ProductFormController {
     void btnDeleteOnAction(ActionEvent event) {
 
         String Product_ID=txtProduct_ID.getText();
-        var model=new ProductModel();
+        //var model=new ProductModel();
 
         try{
-            boolean isDeleted= model.deleteProduct(Product_ID);
+          //  boolean isDeleted= model.deleteProduct(Product_ID);
+
+            boolean isDeleted=productDAO.delete(Product_ID);
             if(isDeleted){
                 tableProduct.refresh();
                 new Alert(Alert.AlertType.CONFIRMATION,"product is Deleted").show();
@@ -296,12 +300,14 @@ public class ProductFormController {
     }
 
     private void loadAllProduct() {
-        var model = new ProductModel();
+       // var model = new ProductModel();
 
         ObservableList<productTm> obList = FXCollections.observableArrayList();
 
         try {
-            List<ProductDto> dtoList = model.getAllProduct();
+          //  List<ProductDto> dtoList = model.getAllProduct();
+
+            List<ProductDto> dtoList = productDAO.getAll();
 
             for(ProductDto dto : dtoList) {
                 obList.add(
@@ -337,13 +343,17 @@ public class ProductFormController {
 
 
           var Dto = new ProductDto(Product_ID, name, Description, Price,qty);
-            var model = new ProductModel();
+           // var model = new ProductModel();
             try {
-                boolean isSaved = model.saveProduct(Dto);
+               // boolean isSaved = model.saveProduct(Dto);
+
+                boolean isSaved = productDAO.save(Dto);
 
                 boolean isPeakSeason = isPeakSeason();
                  List<ProductDto> products;
-                products = model.loadAllProduct();
+               // products = model.loadAllProduct();
+
+                products = productDAO.loadAllProduct();
                 SeasonalAdjustment.adjustQuantity(products, isPeakSeason);
 
                 // Display adjusted quantities
@@ -447,11 +457,13 @@ public class ProductFormController {
            Double Price = Double.parseDouble(txtPrice.getText());
            Integer qty = Integer.parseInt(txtqty.getText());
 
-           var tm = new productTm(Product_ID, name, Description, Price,qty);
-           var model = new ProductModel();
+           var tm = new ProductDto(Product_ID, name, Description, Price,qty);
+           //var model = new ProductModel();
 
            try {
-               boolean isUpdated = model.updateProduct(tm);
+              // boolean isUpdated = model.updateProduct(tm);
+
+               boolean isUpdated = productDAO.update(tm);
                if (isUpdated) {
                    new Alert(Alert.AlertType.CONFIRMATION, "Product updated").showAndWait();
 
@@ -491,9 +503,11 @@ public class ProductFormController {
     void txtProduct_IDOnAction(ActionEvent event) {
         String id = txtProduct_ID.getText();
 
-        var model = new ProductModel();
+        //var model = new ProductModel();
         try {
-            ProductDto dto = model.searchProduct(id);
+           // ProductDto dto = model.searchProduct(id);
+
+            ProductDto dto = productDAO.search(id);
 
             if(dto != null) {
                 fillFields(dto);

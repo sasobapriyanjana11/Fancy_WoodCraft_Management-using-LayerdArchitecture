@@ -12,12 +12,15 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import lk.ijse.FancyWoodCraftManagement.dto.RawMaterialDto;
-import lk.ijse.FancyWoodCraftManagement.dto.SupplierDto;
-import lk.ijse.FancyWoodCraftManagement.model.Bill_OF_MaterialModel;
-import lk.ijse.FancyWoodCraftManagement.model.RawMaterialModel;
-import lk.ijse.FancyWoodCraftManagement.model.SupplierDetailsModel;
-import lk.ijse.FancyWoodCraftManagement.model.SupplierModel;
+import lk.ijse.Layerd.dao.custom.Impl.Bill_OF_MaterialModel;
+import lk.ijse.Layerd.dao.custom.Impl.RawMaterialModel;
+import lk.ijse.Layerd.dao.custom.Impl.SupplierDetailsModel;
+import lk.ijse.Layerd.dao.custom.Impl.SupplierModel;
+import lk.ijse.Layerd.dao.custom.RawMaterialsDAO;
+import lk.ijse.Layerd.dao.custom.SupplierDAO;
+import lk.ijse.Layerd.dto.RawMaterialDto;
+import lk.ijse.Layerd.dto.SupplierDto;
+
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -114,10 +117,11 @@ public class RawMaterialsFormController {
     @FXML
     private ComboBox<String> cmbSupplier_ID;
 
-    private  final SupplierDetailsModel supplierDetailsModel=new SupplierDetailsModel();
+     private  final SupplierDetailsModel supplierDetailsModel=new SupplierDetailsModel();
     private  final Bill_OF_MaterialModel billOfMaterialModel=new Bill_OF_MaterialModel();
-
-
+/////
+    RawMaterialsDAO rawMaterialsDAO=new RawMaterialModel();
+    SupplierDAO supplierDAO=new SupplierModel();
 
 
     @FXML
@@ -175,9 +179,11 @@ public class RawMaterialsFormController {
     void btnDeleteOnAction(ActionEvent event) {
         String  RawMaterial_ID=txtRawMaterial_ID.getText();
 
-        var model=new RawMaterialModel();
+      //  var model=new RawMaterialModel();
         try{
-            boolean isDeleted= model.deleteMaterial(RawMaterial_ID);
+          //  boolean isDeleted= model.deleteMaterial(RawMaterial_ID);
+
+            boolean isDeleted=rawMaterialsDAO.delete(RawMaterial_ID);
             if(isDeleted){
                 tableRawMaterial.refresh();
                 new Alert(Alert.AlertType.CONFIRMATION,"Material Deleted").show();
@@ -290,12 +296,13 @@ public class RawMaterialsFormController {
         loadAllSupplier_ID();
         loadAllMaterials();
     }
-    private  final SupplierModel supplierModel=new SupplierModel();
+
 
     private void loadAllSupplier_ID() {
         ObservableList<String> obList = FXCollections.observableArrayList();
         try {
-            List<SupplierDto> cusList = supplierModel.getAllSuppliers();
+           // List<SupplierDto> cusList = supplierModel.getAllSuppliers();
+            List<SupplierDto> cusList = supplierDAO.getAll();
 
             for (SupplierDto dto : cusList) {
                 obList.add(dto.getSupplier_ID());
@@ -314,12 +321,14 @@ public class RawMaterialsFormController {
     }
 
     private void loadAllMaterials() {
-        var model = new RawMaterialModel();
+      //  var model = new RawMaterialModel();
 
         ObservableList<RawMaterialDto> obList = FXCollections.observableArrayList();
 
         try {
-            List<RawMaterialDto> dtoList = model.getAllMaterials();
+            //List<RawMaterialDto> dtoList = model.getAllMaterials();
+
+            List<RawMaterialDto> dtoList = rawMaterialsDAO.getAll();
 
             for(RawMaterialDto dto : dtoList) {
                 obList.add(
@@ -350,10 +359,11 @@ public class RawMaterialsFormController {
             String Supplier_ID = cmbSupplier_ID.getValue();
 
             var dto= new RawMaterialDto(RawMaterial_ID,name,Qty,Supplier_ID);
-            var model = new RawMaterialModel();
+           // var model = new RawMaterialModel();
 
             try {
-                boolean isSaved = model.saveRawMaterials(dto);
+              //  boolean isSaved = model.saveRawMaterials(dto);
+                boolean isSaved = rawMaterialsDAO.save(dto);
 
                 //////
                /* List<RawMaterialDto> RawMaterialDto=new ArrayList<>();
@@ -437,10 +447,12 @@ public class RawMaterialsFormController {
         String Supplier_ID = cmbSupplier_ID.getValue();
 
         var dto = new RawMaterialDto(RawMaterial_ID, name,QTY, Supplier_ID);
-        var model = new RawMaterialModel();
+        //var model = new RawMaterialModel();
 
         try {
-            boolean isUpdated = model.updateMaterials(dto);
+           // boolean isUpdated = model.updateMaterials(dto);
+
+            boolean isUpdated = rawMaterialsDAO.update(dto);
             if (isUpdated) {
                 new Alert(Alert.AlertType.CONFIRMATION, "material updated").showAndWait();
 
@@ -481,9 +493,11 @@ public class RawMaterialsFormController {
     void txtRawMaterial_IDOnAction(ActionEvent event) {
         String id = txtRawMaterial_ID.getText();
 
-        var model = new RawMaterialModel();
+       // var model = new RawMaterialModel();
         try {
-            RawMaterialDto dto = model.searchMaterial(id);
+          //  RawMaterialDto dto = model.searchMaterial(id);
+
+            RawMaterialDto dto = rawMaterialsDAO.search(id);
 
             if(dto != null) {
                 fillFields(dto);

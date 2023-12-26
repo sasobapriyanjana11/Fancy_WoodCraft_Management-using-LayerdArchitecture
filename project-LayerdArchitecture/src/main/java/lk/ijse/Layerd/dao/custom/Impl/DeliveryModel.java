@@ -1,18 +1,19 @@
 package lk.ijse.Layerd.dao.custom.Impl;
 
-import lk.ijse.FancyWoodCraftManagement.db.DbConnection;
-import lk.ijse.FancyWoodCraftManagement.dto.DeliveryDto;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
+import lk.ijse.Layerd.dao.custom.DeliveryDAO;
+import lk.ijse.Layerd.dao.sqlUtil;
+import lk.ijse.Layerd.dto.DeliveryDto;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DeliveryModel {
-    public boolean saveDeliveryDetails (final DeliveryDto dto) throws SQLException {
-        Connection connection = DbConnection.getInstance().getConnection();
+public class DeliveryModel implements DeliveryDAO {
+    @Override
+    public boolean save (final DeliveryDto dto) throws SQLException {
+      /*  Connection connection = DbConnection.getInstance().getConnection();
 
         String sql = "INSERT INTO Delivery VALUES(?,?,?,?,?,?)";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -24,13 +25,13 @@ public class DeliveryModel {
         preparedStatement.setString(6, dto.getTel());
 
 
-
         boolean isSaved = preparedStatement.executeUpdate() > 0;
-        return isSaved;
+        return isSaved;*/
+        return sqlUtil.execute("INSERT INTO Delivery VALUES(?,?,?,?,?,?)",dto.getDelivery_ID(),dto.getOrder_ID(),dto.getDelivery_Status(),dto.getLocation(),dto.getE_ID(),dto.getTel());
     }
-
-    public boolean updateDeliveryDetails(final DeliveryDto dto) throws SQLException {
-        Connection connection = DbConnection.getInstance().getConnection();
+    @Override
+    public boolean update(final DeliveryDto dto) throws SQLException {
+       /* Connection connection = DbConnection.getInstance().getConnection();
         String sql = "UPDATE Delivery SET Order_ID=?,deliveryStatus=?,Location=?,E_ID=?,tel=? WHERE Delivery_ID=?";
         PreparedStatement preparedStatement= connection.prepareStatement(sql);
         preparedStatement.setString(1, dto.getOrder_ID());
@@ -41,30 +42,35 @@ public class DeliveryModel {
         preparedStatement.setString(6,dto.getDelivery_ID());
 
         boolean isUpdated = preparedStatement.executeUpdate() > 0;
-        return isUpdated;
+        return isUpdated;*/
+        return sqlUtil.execute("UPDATE Delivery SET Order_ID=?,deliveryStatus=?,Location=?,E_ID=?,tel=? WHERE Delivery_ID=?",dto.getOrder_ID(),dto.getDelivery_Status(), dto.getLocation(),dto.getE_ID(),dto.getTel(),dto.getDelivery_ID());
     }
-    public boolean deleteDelivery(String Delivery_ID) throws SQLException {
-        Connection connection=DbConnection.getInstance().getConnection();
+    @Override
+    public boolean delete(String Delivery_ID) throws SQLException {
+     /*   Connection connection=DbConnection.getInstance().getConnection();
 
         String sql="DELETE FROM Delivery WHERE Delivery_ID=?";
         PreparedStatement preparedStatement= connection.prepareStatement(sql);
         preparedStatement.setString(1,Delivery_ID);
 
         boolean isDeleted=preparedStatement.executeUpdate()>0;
-        return  isDeleted;
+        return  isDeleted;*/
+        return sqlUtil.execute("DELETE FROM Delivery WHERE Delivery_ID=?",Delivery_ID);
 
     }
 
 
-
-    public DeliveryDto searchDelivery(String id) throws SQLException {
-        Connection connection = DbConnection.getInstance().getConnection();
+    @Override
+    public DeliveryDto search(String id) throws SQLException {
+       /* Connection connection = DbConnection.getInstance().getConnection();
 
         String sql = "SELECT * FROM Delivery WHERE Delivery_ID = ?";
         PreparedStatement pstm = connection.prepareStatement(sql);
         pstm.setString(1, id);
 
-        ResultSet resultSet = pstm.executeQuery();
+        ResultSet resultSet = pstm.executeQuery();*/
+
+        ResultSet resultSet=sqlUtil.execute("SELECT * FROM Delivery WHERE Delivery_ID = ?",id);
 
         DeliveryDto dto = null;
 
@@ -81,16 +87,18 @@ public class DeliveryModel {
 
         return dto;
     }
-
-    public List<DeliveryDto> getAllDelivery() throws SQLException {
-        Connection connection = DbConnection.getInstance().getConnection();
+    @Override
+    public List<DeliveryDto> getAll() throws SQLException {
+       /* Connection connection = DbConnection.getInstance().getConnection();
 
         String sql = "SELECT * FROM Delivery";
-        PreparedStatement pstm = connection.prepareStatement(sql);
+        PreparedStatement pstm = connection.prepareStatement(sql);*/
 
         List<DeliveryDto> dtoList = new ArrayList<>();
 
-        ResultSet resultSet = pstm.executeQuery();
+     //   ResultSet resultSet = pstm.executeQuery();
+
+        ResultSet resultSet=sqlUtil.execute("SELECT * FROM Delivery");
 
         while (resultSet.next()) {
             String delivery_ID = resultSet.getString(1);

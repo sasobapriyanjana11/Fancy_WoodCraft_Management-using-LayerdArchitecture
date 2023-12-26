@@ -10,8 +10,9 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import lk.ijse.FancyWoodCraftManagement.dto.tm.ForgetPasswordTm;
-import lk.ijse.FancyWoodCraftManagement.model.ForgetPasswordModel;
+import lk.ijse.Layerd.dao.custom.Impl.ForgetPasswordModel;
+import lk.ijse.Layerd.view.tdm.ForgetPasswordTm;
+
 
 import java.io.IOException;
 import java.util.regex.Pattern;

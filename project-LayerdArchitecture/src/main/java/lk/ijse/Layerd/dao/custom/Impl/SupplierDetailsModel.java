@@ -1,16 +1,19 @@
 package lk.ijse.Layerd.dao.custom.Impl;
 
-import lk.ijse.FancyWoodCraftManagement.db.DbConnection;
-import lk.ijse.FancyWoodCraftManagement.dto.RawMaterialDto;
-import lk.ijse.FancyWoodCraftManagement.dto.SupplierDto;
-
+import lk.ijse.Layerd.dao.custom.RawMaterialsDAO;
+import lk.ijse.Layerd.dao.custom.SupplierDAO;
+import lk.ijse.Layerd.db.DbConnection;
+import lk.ijse.Layerd.dto.RawMaterialDto;
+import lk.ijse.Layerd.dto.SupplierDto;
 import java.sql.SQLException;
 import java.util.List;
 
 public class SupplierDetailsModel {
 
-      private  final  RawMaterialModel rawMaterialModel = new RawMaterialModel();
-       private final SupplierModel supplierModel = new SupplierModel();
+     // private  final  RawMaterialModel rawMaterialModel = new RawMaterialModel();
+       //private final SupplierModel supplierModel = new SupplierModel();
+    SupplierDAO supplierDAO=new SupplierModel();
+    RawMaterialsDAO rawMaterialsDAO=new RawMaterialModel();
 
         public boolean updateSupplierDetails(List<RawMaterialDto> rawMaterials, List<SupplierDto> suppliers) {
             boolean success = false;
@@ -19,9 +22,9 @@ public class SupplierDetailsModel {
 
                 DbConnection.getInstance().getConnection().setAutoCommit(false);
 
-                success = rawMaterialModel.isStockUpdated(rawMaterials);
+                success = rawMaterialsDAO.isStockUpdated(rawMaterials);
                 if (success) {
-                    success = supplierModel.updateSupplier((SupplierDto) suppliers);
+                    success = supplierDAO.update((SupplierDto) suppliers);
                 }
                 if (success) {
                     DbConnection.getInstance().getConnection().commit();

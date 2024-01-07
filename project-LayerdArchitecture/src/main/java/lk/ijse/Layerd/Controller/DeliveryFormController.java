@@ -13,6 +13,10 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+import lk.ijse.Layerd.bo.custom.DeliveryBO;
+import lk.ijse.Layerd.bo.custom.EmployeeBO;
+import lk.ijse.Layerd.bo.custom.Impl.DeliveryBOImpl;
+import lk.ijse.Layerd.bo.custom.Impl.EmployeeBOImpl;
 import lk.ijse.Layerd.dao.custom.DeliveryDAO;
 import lk.ijse.Layerd.dao.custom.EmployeeDAO;
 import lk.ijse.Layerd.dao.custom.Impl.DeliveryModel;
@@ -22,6 +26,7 @@ import lk.ijse.Layerd.dao.custom.Impl.OrdersModel;
 import lk.ijse.Layerd.dto.DeliveryDto;
 import lk.ijse.Layerd.dto.EmployeeDto;
 import lk.ijse.Layerd.dto.OrderDto;
+import lk.ijse.Layerd.entity.Employee;
 import lk.ijse.Layerd.view.tdm.DeliveryTm;
 
 import java.io.IOException;
@@ -133,7 +138,9 @@ public class DeliveryFormController {
    private final OrdersModel ordersModel=new OrdersModel();
 
 
-    DeliveryDAO deliveryDAO=new lk.ijse.Layerd.dao.custom.Impl.DeliveryModel();
+   // DeliveryDAO deliveryDAO=new lk.ijse.Layerd.dao.custom.Impl.DeliveryModel();
+    DeliveryBO deliveryBO=new DeliveryBOImpl();
+    EmployeeBO employeeBO=new EmployeeBOImpl();
 
     @FXML
     void btnBackOnAction(ActionEvent event) throws IOException {
@@ -192,7 +199,8 @@ public class DeliveryFormController {
         try{
            // boolean isDeleted= model.deleteDelivery(Delivery_ID);
 
-            boolean isDeleted=deliveryDAO.delete(Delivery_ID);
+          //  boolean isDeleted=deliveryDAO.delete(Delivery_ID);
+            boolean isDeleted=deliveryBO.deleteDelivery(Delivery_ID);
             if(isDeleted){
                 new Alert(Alert.AlertType.CONFIRMATION,"Delivery details deleted").show();
                 tableDelivery.refresh();
@@ -325,7 +333,10 @@ public class DeliveryFormController {
     private void loadAllE_ID() {
         ObservableList<String> obList = FXCollections.observableArrayList();
         try {
-            List<EmployeeDto> cusList = employeeDAO.loadAllEmployee();
+           //List<EmployeeDto> cusList = employeeDAO.loadAllEmployee();
+            List<EmployeeDto> cusList = employeeBO.loadAllEmployee();
+
+
 
             for (EmployeeDto dto : cusList) {
                 obList.add(dto.getE_ID());
@@ -352,7 +363,8 @@ public class DeliveryFormController {
 
         try {
            // List<DeliveryDto> dtoList = model.getAllDelivery();
-            List<DeliveryDto> dtoList = deliveryDAO.getAll();
+          //  List<DeliveryDto> dtoList = deliveryDAO.getAll();
+            List<DeliveryDto> dtoList = deliveryBO.getAllDelivery();
 
             for(DeliveryDto dto: dtoList) {
                 obList.add(
@@ -390,7 +402,8 @@ public class DeliveryFormController {
            try {
               // boolean isSaved = model.saveDeliveryDetails(dto);
 
-               boolean isSaved=deliveryDAO.save(dto);
+              // boolean isSaved=deliveryDAO.save(dto);
+               boolean isSaved= deliveryBO.saveDeliveryDetails(dto);
                if (isSaved) {
                    new Alert(Alert.AlertType.CONFIRMATION, "Delivery details are saved successfully").showAndWait();
 
@@ -422,7 +435,7 @@ public class DeliveryFormController {
 
  //2)
         String location=txtLocation.getText();
-        boolean isLocationValidated=Pattern.matches("[A-Za-z]{3,}",location);
+        boolean isLocationValidated=Pattern.matches("[A-Za-z ]+",location);
 
  //3)
         String tel=txtTelephone.getText();
@@ -483,7 +496,8 @@ public class DeliveryFormController {
             try {
                // boolean isUpdated = model.updateDeliveryDetails(dto);
 
-                boolean isUpdated=deliveryDAO.update(dto);
+               // boolean isUpdated=deliveryDAO.update(dto);
+                boolean isUpdated= deliveryBO.updateDeliveryDetails(dto);
                 if (isUpdated) {
                     new Alert(Alert.AlertType.CONFIRMATION, "Delivery details are updated").showAndWait();
 
@@ -522,10 +536,11 @@ public class DeliveryFormController {
     void txtDelivery_IDOnAction(ActionEvent event) {
         String id = txtDelivery_ID.getText();
 
-        var model = new DeliveryModel();
+       // var model = new DeliveryModel();
         try {
          //   DeliveryDto dto = model.searchDelivery(id);
-            DeliveryDto dto=deliveryDAO.search(id);
+         //   DeliveryDto dto=deliveryDAO.search(id);
+            DeliveryDto dto=deliveryBO.searchDelivery(id);
 
             if(dto != null) {
                 fillFields(dto);

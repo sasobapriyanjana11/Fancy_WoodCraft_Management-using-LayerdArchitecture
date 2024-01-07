@@ -1,5 +1,9 @@
 package lk.ijse.Layerd.dao.custom.Impl;
 
+import lk.ijse.Layerd.bo.custom.Impl.RawMaterialsBOImpl;
+import lk.ijse.Layerd.bo.custom.Impl.SupplierBOImpl;
+import lk.ijse.Layerd.bo.custom.RawMaterialsBO;
+import lk.ijse.Layerd.bo.custom.SupplierBO;
 import lk.ijse.Layerd.dao.custom.RawMaterialsDAO;
 import lk.ijse.Layerd.dao.custom.SupplierDAO;
 import lk.ijse.Layerd.db.DbConnection;
@@ -12,8 +16,10 @@ public class SupplierDetailsModel {
 
      // private  final  RawMaterialModel rawMaterialModel = new RawMaterialModel();
        //private final SupplierModel supplierModel = new SupplierModel();
-    SupplierDAO supplierDAO=new SupplierModel();
-    RawMaterialsDAO rawMaterialsDAO=new RawMaterialModel();
+   // SupplierDAO supplierDAO=  new SupplierModel();
+  //  RawMaterialsDAO rawMaterialsDAO=new RawMaterialModel();
+    RawMaterialsBO rawMaterialsBO=new RawMaterialsBOImpl();
+    SupplierBO supplierBO=new SupplierBOImpl();
 
         public boolean updateSupplierDetails(List<RawMaterialDto> rawMaterials, List<SupplierDto> suppliers) {
             boolean success = false;
@@ -22,9 +28,11 @@ public class SupplierDetailsModel {
 
                 DbConnection.getInstance().getConnection().setAutoCommit(false);
 
-                success = rawMaterialsDAO.isStockUpdated(rawMaterials);
+               // success = rawMaterialsDAO.isStockUpdated(rawMaterials);
+                success = rawMaterialsBO.isStockUpdated(rawMaterials);
                 if (success) {
-                    success = supplierDAO.update((SupplierDto) suppliers);
+                   // success = supplierDAO.update((SupplierDto) suppliers);
+                    success = supplierBO.updateSupplier((SupplierDto) suppliers);
                 }
                 if (success) {
                     DbConnection.getInstance().getConnection().commit();

@@ -3,13 +3,14 @@ package lk.ijse.Layerd.dao.custom;
 import lk.ijse.Layerd.dao.CrudDAO;
 import lk.ijse.Layerd.dao.sqlUtil;
 import lk.ijse.Layerd.dto.RawMaterialDto;
+import lk.ijse.Layerd.entity.RawMaterial;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public interface RawMaterialsDAO extends CrudDAO<RawMaterialDto> {
+public interface RawMaterialsDAO extends CrudDAO<RawMaterial> {
   /*  boolean saveRawMaterials(final RawMaterialDto dto) throws SQLException;
     boolean updateMaterials(final RawMaterialDto dto) throws SQLException ;
 
@@ -19,7 +20,7 @@ public interface RawMaterialsDAO extends CrudDAO<RawMaterialDto> {
 
      List<RawMaterialDto> getAllMaterials() throws SQLException ;*/
 
-    boolean isStockUpdated( List<RawMaterialDto> tmList) throws SQLException ;
+    boolean isStockUpdated( List<RawMaterial> tmList) throws SQLException ;
 
 
 }

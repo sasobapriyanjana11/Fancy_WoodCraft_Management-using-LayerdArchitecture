@@ -18,6 +18,12 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
+import lk.ijse.Layerd.bo.custom.EmployeeBO;
+import lk.ijse.Layerd.bo.custom.Impl.EmployeeBOImpl;
+import lk.ijse.Layerd.bo.custom.Impl.ProductBOImpl;
+import lk.ijse.Layerd.bo.custom.Impl.SupplierBOImpl;
+import lk.ijse.Layerd.bo.custom.ProductBO;
+import lk.ijse.Layerd.bo.custom.SupplierBO;
 import lk.ijse.Layerd.dao.custom.EmployeeDAO;
 import lk.ijse.Layerd.dao.custom.Impl.EmployeeModel;
 import lk.ijse.Layerd.dao.custom.Impl.OrdersModel;
@@ -109,12 +115,15 @@ public class DashBoardFormController {
     private final SupplierModel supplierModel=new SupplierModel();
     private final OrdersModel ordersModel=new OrdersModel();*/
 
-    SupplierDAO supplierDAO=new SupplierModel();
+  /*  SupplierDAO supplierDAO=new SupplierModel();
     OrdersDAO ordersDAO=new OrdersModel();
     EmployeeDAO employeeDAO=new EmployeeModel();
-
     ProductDAO productDAO=new ProductModel();
-
+    SupplierDAO supplierDAO=new SupplierModel();*/
+    OrdersDAO ordersDAO=new OrdersModel();
+    EmployeeBO employeeBO=new EmployeeBOImpl();
+    ProductBO productBO=new ProductBOImpl();
+    SupplierBO supplierBO=new SupplierBOImpl();
 
 
     public  void initialize() throws SQLException {
@@ -171,7 +180,8 @@ public class DashBoardFormController {
         try {
            // List<ProductDto> dtoList = model.getAllProduct();
 
-            List<ProductDto> dtoList = productDAO.getAll();
+          // List<ProductDto> dtoList = productDAO.getAll();
+            List<ProductDto> dtoList = productBO.getAllProduct();
 
             for(ProductDto dto : dtoList) {
                 obList.add(
@@ -206,7 +216,8 @@ public class DashBoardFormController {
         try {
          //   List<SupplierDto> dtoList = model.getAllSuppliers();
 
-            List<SupplierDto> dtoList = supplierDAO.getAll();
+         //   List<SupplierDto> dtoList = supplierDAO.getAll();
+            List<SupplierDto> dtoList = supplierBO.getAllSuppliers();
 
             for(SupplierDto dto : dtoList) {
                 obList.add(
@@ -236,7 +247,8 @@ public class DashBoardFormController {
     private void countEmployeeFrame() throws SQLException {
         //String count1= String.valueOf(employeeModel.countEmployee());
 
-        String count1= String.valueOf(employeeDAO.countEmployee());
+      //  String count1= String.valueOf(employeeDAO.countEmployee());
+        String count1= String.valueOf(employeeBO.countEmployee());
         this.lblTotal1.setText(count1);
     }
 
@@ -402,6 +414,7 @@ public class DashBoardFormController {
 
         try {
             List<ProductDto> productList = model.searchProductByName(searchText);
+
 
             if (productList.isEmpty()) {
                 new Alert(Alert.AlertType.INFORMATION, "No product found with the given name.").show();

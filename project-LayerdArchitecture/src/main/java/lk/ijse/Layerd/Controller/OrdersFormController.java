@@ -12,7 +12,12 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import lk.ijse.Layerd.bo.custom.CustomerBO;
+import lk.ijse.Layerd.bo.custom.Impl.CustomerBOImpl;
+import lk.ijse.Layerd.bo.custom.Impl.OrdersBOImpl;
+import lk.ijse.Layerd.bo.custom.OrdersBO;
 import lk.ijse.Layerd.dao.custom.CustomerDAO;
+import lk.ijse.Layerd.dao.custom.Impl.Bill_OF_MaterialModel;
 import lk.ijse.Layerd.dao.custom.OrdersDAO;
 import lk.ijse.Layerd.dto.CustomerDto;
 import lk.ijse.Layerd.view.tdm.OrdersTm;
@@ -115,8 +120,12 @@ public class OrdersFormController {
 
     //private final CustomerModel customerModel=new CustomerModel();
 
-    CustomerDAO customerDAO=new CustomerModel();
-    OrdersDAO ordersDAO=new OrdersModel();
+   // CustomerDAO customerDAO=new CustomerModel();
+    CustomerBO customerBO=new CustomerBOImpl();
+   // OrdersDAO ordersDAO=new OrdersModel();
+    OrdersBO ordersBO=new OrdersBOImpl();
+
+
 
     @FXML
     void btnBackOnAction(ActionEvent event) throws IOException {
@@ -176,7 +185,8 @@ public class OrdersFormController {
 
         try{
            // boolean isDeleted= model.deleteOrders(Order_ID);
-            boolean isDeleted=ordersDAO.delete(Order_ID);
+          //  boolean isDeleted=ordersDAO.delete(Order_ID);
+            boolean isDeleted=ordersBO.deleteOrders(Order_ID);
             if(isDeleted){
                 tableOrders.refresh();
                 new Alert(Alert.AlertType.CONFIRMATION,"order is   deleted ").show();
@@ -293,7 +303,8 @@ public class OrdersFormController {
         try {
           //  List<CustomerDto> cusList = customerModel.getAllCustomers();
 
-            List<CustomerDto> cusList = customerDAO.getAllCustomers();
+           // List<CustomerDto> cusList = customerDAO.getAllCustomers();
+            List<CustomerDto> cusList = customerBO.getAllCustomers();
 
             for (CustomerDto dto : cusList) {
                 obList.add(dto.getC_ID());
@@ -318,7 +329,8 @@ public class OrdersFormController {
         try {
            // List<OrdersTm> dtoList = model.getAllOrders();
 
-            List<OrdersTm> dtoList = ordersDAO.getAll();
+           // List<OrdersTm> dtoList = ordersDAO.getAll();
+            List<OrdersTm> dtoList = ordersBO.getAllOrders();
             for(OrdersTm Tm: dtoList) {
                 obList.add(
                         new OrdersTm(
@@ -348,7 +360,9 @@ public class OrdersFormController {
            // var model = new OrdersModel();
             try {
               //  boolean isSaved = model.saveOrders(Tm);
-                boolean isSaved=ordersDAO.save(Tm);
+               // boolean isSaved=ordersDAO.save(Tm);
+                boolean isSaved=ordersBO.saveOrders(Tm);
+
 
                 if (isSaved) {
                     new Alert(Alert.AlertType.CONFIRMATION, "Order saved ").showAndWait();
@@ -420,7 +434,8 @@ public class OrdersFormController {
             try {
                 // boolean isUpdated = model.updateOrders(Tm);
 
-                boolean isUpdated=ordersDAO.update(Tm);
+               // boolean isUpdated=ordersDAO.update(Tm);
+                boolean isUpdated=ordersBO.updateOrders(Tm);
                 if (isUpdated) {
                     new Alert(Alert.AlertType.CONFIRMATION, "order Updated").showAndWait();
                     ////
@@ -460,7 +475,8 @@ public class OrdersFormController {
        // var model = new OrdersModel();
         try {
            // OrdersTm  Tm = model.searchOrder(id);
-            OrdersTm  Tm = ordersDAO.search(id);
+           // OrdersTm  Tm = ordersDAO.search(id);
+            OrdersTm  Tm = ordersBO.searchOrder(id);
 
             if(Tm != null) {
                 fillFields(Tm);

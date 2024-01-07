@@ -4,6 +4,7 @@ package lk.ijse.Layerd.dao.custom.Impl;
 import lk.ijse.Layerd.dao.custom.DeliveryDAO;
 import lk.ijse.Layerd.dao.sqlUtil;
 import lk.ijse.Layerd.dto.DeliveryDto;
+import lk.ijse.Layerd.entity.Delivery;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,7 +13,7 @@ import java.util.List;
 
 public class DeliveryModel implements DeliveryDAO {
     @Override
-    public boolean save (final DeliveryDto dto) throws SQLException {
+    public boolean save (final Delivery entity) throws SQLException {
       /*  Connection connection = DbConnection.getInstance().getConnection();
 
         String sql = "INSERT INTO Delivery VALUES(?,?,?,?,?,?)";
@@ -27,10 +28,10 @@ public class DeliveryModel implements DeliveryDAO {
 
         boolean isSaved = preparedStatement.executeUpdate() > 0;
         return isSaved;*/
-        return sqlUtil.execute("INSERT INTO Delivery VALUES(?,?,?,?,?,?)",dto.getDelivery_ID(),dto.getOrder_ID(),dto.getDelivery_Status(),dto.getLocation(),dto.getE_ID(),dto.getTel());
+        return sqlUtil.execute("INSERT INTO Delivery VALUES(?,?,?,?,?,?)",entity.getDelivery_ID(),entity.getOrder_ID(),entity.getDelivery_Status(),entity.getLocation(),entity.getE_ID(),entity.getTel());
     }
     @Override
-    public boolean update(final DeliveryDto dto) throws SQLException {
+    public boolean update(final Delivery entity) throws SQLException {
        /* Connection connection = DbConnection.getInstance().getConnection();
         String sql = "UPDATE Delivery SET Order_ID=?,deliveryStatus=?,Location=?,E_ID=?,tel=? WHERE Delivery_ID=?";
         PreparedStatement preparedStatement= connection.prepareStatement(sql);
@@ -43,7 +44,7 @@ public class DeliveryModel implements DeliveryDAO {
 
         boolean isUpdated = preparedStatement.executeUpdate() > 0;
         return isUpdated;*/
-        return sqlUtil.execute("UPDATE Delivery SET Order_ID=?,deliveryStatus=?,Location=?,E_ID=?,tel=? WHERE Delivery_ID=?",dto.getOrder_ID(),dto.getDelivery_Status(), dto.getLocation(),dto.getE_ID(),dto.getTel(),dto.getDelivery_ID());
+        return sqlUtil.execute("UPDATE Delivery SET Order_ID=?,deliveryStatus=?,Location=?,E_ID=?,tel=? WHERE Delivery_ID=?",entity.getOrder_ID(),entity.getDelivery_Status(), entity.getLocation(),entity.getE_ID(),entity.getTel(),entity.getDelivery_ID());
     }
     @Override
     public boolean delete(String Delivery_ID) throws SQLException {
@@ -61,7 +62,7 @@ public class DeliveryModel implements DeliveryDAO {
 
 
     @Override
-    public DeliveryDto search(String id) throws SQLException {
+    public Delivery search(String id) throws SQLException {
        /* Connection connection = DbConnection.getInstance().getConnection();
 
         String sql = "SELECT * FROM Delivery WHERE Delivery_ID = ?";
@@ -72,7 +73,7 @@ public class DeliveryModel implements DeliveryDAO {
 
         ResultSet resultSet=sqlUtil.execute("SELECT * FROM Delivery WHERE Delivery_ID = ?",id);
 
-        DeliveryDto dto = null;
+        Delivery entity = null;
 
         if(resultSet.next()) {
             String delivery_ID = resultSet.getString(1);
@@ -82,19 +83,19 @@ public class DeliveryModel implements DeliveryDAO {
             String E_ID=resultSet.getString(5);
             String tel=resultSet.getString(6);
 
-            dto = new DeliveryDto(delivery_ID,order_ID,delivery_Status,location,E_ID,tel);
+            entity = new Delivery(delivery_ID,order_ID,delivery_Status,location,E_ID,tel);
         }
 
-        return dto;
+        return entity;
     }
     @Override
-    public List<DeliveryDto> getAll() throws SQLException {
+    public List<Delivery> getAll() throws SQLException {
        /* Connection connection = DbConnection.getInstance().getConnection();
 
         String sql = "SELECT * FROM Delivery";
         PreparedStatement pstm = connection.prepareStatement(sql);*/
 
-        List<DeliveryDto> dtoList = new ArrayList<>();
+        List<Delivery> dtoList = new ArrayList<>();
 
      //   ResultSet resultSet = pstm.executeQuery();
 
@@ -109,8 +110,8 @@ public class DeliveryModel implements DeliveryDAO {
             String tel=resultSet.getString(6);
 
 
-            var dto = new DeliveryDto(delivery_ID,order_ID,delivery_Status,location,E_ID,tel);
-            dtoList.add(dto);
+            var entity = new Delivery(delivery_ID,order_ID,delivery_Status,location,E_ID,tel);
+            dtoList.add(entity);
         }
         return dtoList;
     }

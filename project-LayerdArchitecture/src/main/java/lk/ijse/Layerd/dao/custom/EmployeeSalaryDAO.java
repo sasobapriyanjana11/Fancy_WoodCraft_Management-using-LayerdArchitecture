@@ -3,13 +3,14 @@ package lk.ijse.Layerd.dao.custom;
 import lk.ijse.Layerd.dao.CrudDAO;
 import lk.ijse.Layerd.dao.sqlUtil;
 import lk.ijse.Layerd.dto.ESalaryDto;
+import lk.ijse.Layerd.entity.ESalary;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public interface EmployeeSalaryDAO extends CrudDAO<ESalaryDto> {
+public interface EmployeeSalaryDAO extends CrudDAO<ESalary> {
    /* boolean saveESalaryDetails(final ESalaryDto dto) throws SQLException ;
 
      boolean updateESalaryDetails(final ESalaryDto dto) throws SQLException ;

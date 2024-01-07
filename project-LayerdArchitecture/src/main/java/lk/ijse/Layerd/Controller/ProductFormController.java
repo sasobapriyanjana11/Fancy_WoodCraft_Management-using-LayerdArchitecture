@@ -15,6 +15,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import lk.ijse.Layerd.bo.custom.Impl.ProductBOImpl;
+import lk.ijse.Layerd.bo.custom.ProductBO;
 import lk.ijse.Layerd.dao.custom.Impl.ProductModel;
 import lk.ijse.Layerd.dao.custom.ProductDAO;
 import lk.ijse.Layerd.dto.ProductDto;
@@ -116,7 +118,8 @@ public class ProductFormController {
     @FXML
     private TextField txtQty;
 
-    ProductDAO productDAO=new ProductModel();
+  //  ProductDAO productDAO=new ProductModel();
+    ProductBO productBO=new ProductBOImpl();
     @FXML
     void btnBackOnAction(ActionEvent event) throws IOException {
         Parent root= FXMLLoader.load(this.getClass().getResource("/view/DashBoardForm.fxml"));
@@ -179,7 +182,8 @@ public class ProductFormController {
         try{
           //  boolean isDeleted= model.deleteProduct(Product_ID);
 
-            boolean isDeleted=productDAO.delete(Product_ID);
+          //  boolean isDeleted=productDAO.delete(Product_ID);
+            boolean isDeleted=productBO.deleteProduct(Product_ID);
             if(isDeleted){
                 tableProduct.refresh();
                 new Alert(Alert.AlertType.CONFIRMATION,"product is Deleted").show();
@@ -307,7 +311,8 @@ public class ProductFormController {
         try {
           //  List<ProductDto> dtoList = model.getAllProduct();
 
-            List<ProductDto> dtoList = productDAO.getAll();
+           // List<ProductDto> dtoList = productDAO.getAll();
+            List<ProductDto> dtoList = productBO.getAllProduct();
 
             for(ProductDto dto : dtoList) {
                 obList.add(
@@ -347,13 +352,15 @@ public class ProductFormController {
             try {
                // boolean isSaved = model.saveProduct(Dto);
 
-                boolean isSaved = productDAO.save(Dto);
+             //   boolean isSaved = productDAO.save(Dto);
+                boolean isSaved = productBO.saveProduct(Dto);
 
                 boolean isPeakSeason = isPeakSeason();
                  List<ProductDto> products;
                // products = model.loadAllProduct();
 
-                products = productDAO.loadAllProduct();
+             //   products = productDAO.loadAllProduct();
+                products = productBO.loadAllProduct();
                 SeasonalAdjustment.adjustQuantity(products, isPeakSeason);
 
                 // Display adjusted quantities
@@ -402,11 +409,11 @@ public class ProductFormController {
 
   //2)
         String name=txtProduct_Name.getText();
-        boolean isProductNameValidated=Pattern.matches("[A-Za-z]{2,}",name);
+        boolean isProductNameValidated=Pattern.matches("[A-Za-z]+",name);
 
  //3)
         String desc=txtDescription.getText();
-        boolean isDescValidated=Pattern.matches("[A-Za-z]{1,}+[0-9]{1,}",desc);
+        boolean isDescValidated=Pattern.matches("[A-Za-z0-9 ]+",desc);
 
 
 
@@ -455,7 +462,7 @@ public class ProductFormController {
            String name = txtProduct_Name.getText();
            String Description = txtDescription.getText();
            Double Price = Double.parseDouble(txtPrice.getText());
-           Integer qty = Integer.parseInt(txtqty.getText());
+           int qty = Integer.parseInt(txtqty.getText());
 
            var tm = new ProductDto(Product_ID, name, Description, Price,qty);
            //var model = new ProductModel();
@@ -463,7 +470,8 @@ public class ProductFormController {
            try {
               // boolean isUpdated = model.updateProduct(tm);
 
-               boolean isUpdated = productDAO.update(tm);
+             //  boolean isUpdated = productDAO.update(tm);
+               boolean isUpdated = productBO.updateProduct(tm);
                if (isUpdated) {
                    new Alert(Alert.AlertType.CONFIRMATION, "Product updated").showAndWait();
 
@@ -507,7 +515,8 @@ public class ProductFormController {
         try {
            // ProductDto dto = model.searchProduct(id);
 
-            ProductDto dto = productDAO.search(id);
+          //  ProductDto dto = productDAO.search(id);
+            ProductDto dto = productBO.searchProduct(id);
 
             if(dto != null) {
                 fillFields(dto);
@@ -526,7 +535,8 @@ public class ProductFormController {
             txtProduct_Name.setText(dto.getName());
             txtPrice.setText(String.valueOf(dto.getPrice()));
             txtDescription.setText(dto.getDescription());
-            txtQty.setText(String.valueOf(dto.getQuantityOnStock()));
+             txtQty.setText(String.valueOf(dto.getQuantityOnStock()));
+
 
         } else {
             new Alert(Alert.AlertType.INFORMATION, "ProductDto is null").show();

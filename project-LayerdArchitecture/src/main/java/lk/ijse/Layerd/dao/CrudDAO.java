@@ -5,7 +5,7 @@ import lk.ijse.Layerd.dto.DeliveryDto;
 import java.sql.SQLException;
 import java.util.List;
 
-public interface CrudDAO <T> {
+public interface CrudDAO <T> extends SuperDAO {
     boolean save (final T dto) throws SQLException;
 
     boolean update(final T dto) throws SQLException ;

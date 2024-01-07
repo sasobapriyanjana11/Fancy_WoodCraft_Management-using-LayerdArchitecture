@@ -4,6 +4,7 @@ package lk.ijse.Layerd.dao.custom.Impl;
 import lk.ijse.Layerd.dao.custom.EmployeeDAO;
 import lk.ijse.Layerd.dao.sqlUtil;
 import lk.ijse.Layerd.dto.EmployeeDto;
+import lk.ijse.Layerd.entity.Employee;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,7 +13,7 @@ import java.util.List;
 
 public class EmployeeModel implements EmployeeDAO {
     @Override
-    public boolean save(final EmployeeDto dto) throws SQLException {
+    public boolean save(final Employee entity) throws SQLException {
       /*  Connection connection = DbConnection.getInstance().getConnection();
 
         String sql = "INSERT INTO Employee VALUES(?,?,?,?)";
@@ -25,10 +26,10 @@ public class EmployeeModel implements EmployeeDAO {
         boolean isSaved = preparedStatement.executeUpdate() > 0;
         return isSaved;*/
 
-        return sqlUtil.execute("INSERT INTO Employee VALUES(?,?,?,?)",dto.getE_ID(),dto.getName(),dto.getTel(),dto.getJobTitle());
+        return sqlUtil.execute("INSERT INTO Employee VALUES(?,?,?,?)",entity.getE_ID(),entity.getName(),entity.getTel(),entity.getJobTitle());
     }
     @Override
-    public boolean update(final EmployeeDto dto) throws SQLException {
+    public boolean update(final Employee entity) throws SQLException {
        /* Connection connection = DbConnection.getInstance().getConnection();
 
         String sql = "UPDATE Employee SET name=?,tel=?,jobTitle=? WHERE E_ID=?";
@@ -41,7 +42,7 @@ public class EmployeeModel implements EmployeeDAO {
         boolean isUpdated = preparedStatement.executeUpdate() > 0;
         return isUpdated;*/
 
-        return sqlUtil.execute("UPDATE Employee SET name=?,tel=?,jobTitle=? WHERE E_ID=?",dto.getName(), dto.getTel(),dto.getJobTitle(),dto.getE_ID());
+        return sqlUtil.execute("UPDATE Employee SET name=?,tel=?,jobTitle=? WHERE E_ID=?",entity.getName(), entity.getTel(),entity.getJobTitle(),entity.getE_ID());
     }
     @Override
     public boolean delete(String E_ID) throws SQLException {
@@ -59,7 +60,7 @@ public class EmployeeModel implements EmployeeDAO {
     }
 
     @Override
-    public EmployeeDto search(String id) throws SQLException {
+    public Employee search(String id) throws SQLException {
       /*  Connection connection = DbConnection.getInstance().getConnection();
 
         String sql = "SELECT * FROM Employee WHERE E_ID = ?";
@@ -70,7 +71,7 @@ public class EmployeeModel implements EmployeeDAO {
 
         ResultSet resultSet=sqlUtil.execute("SELECT * FROM Employee WHERE E_ID = ?",id);
 
-        EmployeeDto dto = null;
+        Employee entity = null;
 
         if(resultSet.next()) {
             String e_id = resultSet.getString(1);
@@ -79,20 +80,20 @@ public class EmployeeModel implements EmployeeDAO {
             String jobTitle = resultSet.getString(4);
 
 
-            dto = new EmployeeDto(e_id,name,jobTitle,tel);
+            entity = new Employee(e_id,name,jobTitle,tel);
         }
 
-        return dto;
+        return entity;
     }
 
     @Override
-    public List<EmployeeDto> getAll() throws SQLException {
+    public List<Employee> getAll() throws SQLException {
         /*Connection connection = DbConnection.getInstance().getConnection();
 
         String sql = "SELECT * FROM Employee";
         PreparedStatement pstm = connection.prepareStatement(sql);*/
 
-        List<EmployeeDto> dtoList = new ArrayList<>();
+        List<Employee> dtoList = new ArrayList<>();
 
        // ResultSet resultSet = pstm.executeQuery();
         ResultSet resultSet=sqlUtil.execute("SELECT * FROM Employee");
@@ -104,24 +105,24 @@ public class EmployeeModel implements EmployeeDAO {
             String jobTitle = resultSet.getString(4);
 
 
-            var dto = new EmployeeDto(e_id,name,jobTitle,tel);
-            dtoList.add(dto);
+            var entity = new Employee(e_id,name,jobTitle,tel);
+            dtoList.add(entity);
         }
         return dtoList;
     }
 
     @Override
-    public List<EmployeeDto> loadAllEmployee() throws SQLException {
+    public List<Employee> loadAllEmployee() throws SQLException {
        /* Connection connection = DbConnection.getInstance().getConnection();
 
         String sql = "SELECT * FROM Employee";
         ResultSet resultSet = connection.prepareStatement(sql).executeQuery();*/
         ResultSet resultSet=sqlUtil.execute("SELECT * FROM Employee");
 
-        List<EmployeeDto> EmployeeList = new ArrayList<>();
+        List<Employee> EmployeeList = new ArrayList<>();
 
         while (resultSet.next()) {
-            EmployeeList.add(new EmployeeDto(
+            EmployeeList.add(new Employee(
                     resultSet.getString(1),
                     resultSet.getString(2),
                     resultSet.getString(3),

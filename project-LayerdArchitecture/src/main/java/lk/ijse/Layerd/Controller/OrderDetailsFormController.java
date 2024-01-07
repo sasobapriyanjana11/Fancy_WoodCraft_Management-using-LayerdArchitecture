@@ -15,11 +15,12 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+import lk.ijse.Layerd.bo.custom.CustomerBO;
+import lk.ijse.Layerd.bo.custom.Impl.CustomerBOImpl;
+import lk.ijse.Layerd.bo.custom.Impl.ProductBOImpl;
+import lk.ijse.Layerd.bo.custom.ProductBO;
 import lk.ijse.Layerd.dao.custom.CustomerDAO;
-import lk.ijse.Layerd.dao.custom.Impl.CustomerModel;
-import lk.ijse.Layerd.dao.custom.Impl.OrdersModel;
-import lk.ijse.Layerd.dao.custom.Impl.PlaceOrderModel;
-import lk.ijse.Layerd.dao.custom.Impl.ProductModel;
+import lk.ijse.Layerd.dao.custom.Impl.*;
 import lk.ijse.Layerd.dao.custom.OrdersDAO;
 import lk.ijse.Layerd.dao.custom.ProductDAO;
 import lk.ijse.Layerd.db.DbConnection;
@@ -162,6 +163,9 @@ public class OrderDetailsFormController {
     private Label lblUnitPrice;
 
     private final PlaceOrderModel placeOrderModel = new PlaceOrderModel();
+    ProductBO productBO=new ProductBOImpl();
+    CustomerBO customerBO=new CustomerBOImpl();
+    private  final Bill_OF_MaterialModel billOfMaterialModel=new Bill_OF_MaterialModel();
 
     public void initialize() {
         setCellValueFactory();
@@ -197,7 +201,9 @@ public class OrderDetailsFormController {
         try {
            // List<ProductDto> itemList = itemModel.loadAllProduct();
 
-            List<ProductDto> itemList = productDAO.loadAllProduct();
+           // List<ProductDto> itemList = productDAO.loadAllProduct();
+
+            List<ProductDto> itemList = productBO.loadAllProduct();
 
             for (ProductDto  itemDto : itemList) {
                 obList.add(itemDto.getProduct_ID());
@@ -439,7 +445,8 @@ public class OrderDetailsFormController {
 
         try {
             boolean isSuccess = placeOrderModel.placeOrder(placeOrderDto);
-            if(isSuccess) {
+
+            if(isSuccess ) {
                 new Alert(Alert.AlertType.CONFIRMATION, "order completed!").showAndWait();
 
 
@@ -495,7 +502,8 @@ public class OrderDetailsFormController {
         String id = cmbCustomerId.getValue();
        // CustomerDto dto = customerModel.searchCustomer(id);
 
-        CustomerDto dto = customerDAO.searchCustomer(id);
+       // CustomerDto dto = customerDAO.searchCustomer(id);
+        CustomerDto dto = customerBO.searchCustomer(id);
         lblCustomerName.setText(dto.getName());
 
     }
@@ -509,7 +517,8 @@ public class OrderDetailsFormController {
         try {
           // ProductDto  dto = itemModel.searchProduct(code);
 
-            ProductDto  dto = productDAO.search(code);
+           // ProductDto  dto = productDAO.search(code);
+            ProductDto  dto = productBO.searchProduct(code);
 
             lblDescription.setText(dto.getDescription());
             lblUnitPrice.setText(String.valueOf(dto.getPrice()));

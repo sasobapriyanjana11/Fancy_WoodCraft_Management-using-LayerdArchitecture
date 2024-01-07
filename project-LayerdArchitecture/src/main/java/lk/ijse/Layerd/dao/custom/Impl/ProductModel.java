@@ -5,6 +5,7 @@ import lk.ijse.Layerd.dao.custom.ProductDAO;
 import lk.ijse.Layerd.dao.sqlUtil;
 import lk.ijse.Layerd.db.DbConnection;
 import lk.ijse.Layerd.dto.ProductDto;
+import lk.ijse.Layerd.entity.Product;
 import lk.ijse.Layerd.view.tdm.CartTm;
 import lk.ijse.Layerd.view.tdm.productTm;
 import java.sql.Connection;
@@ -17,7 +18,7 @@ import java.util.List;
 public class ProductModel implements ProductDAO {
 
    @Override
-    public  boolean save(final ProductDto dto) throws SQLException {
+    public  boolean save(final Product entity) throws SQLException {
        /* Connection connection= DbConnection.getInstance().getConnection();
 
        String sql="INSERT INTO Product VALUES(?,?,?,?,?)";
@@ -29,13 +30,18 @@ public class ProductModel implements ProductDAO {
         preparedStatement.setDouble(5,dto.getQuantityOnStock());
      boolean isSaved=preparedStatement.executeUpdate()>0;
 
-        return  isSaved;*/
+        return  isSaved;
+        Product_ID VARCHAR(40) PRIMARY KEY,
+    name VARCHAR(35) NOT NULL,
+    Description VARCHAR(100) ,
+    Price DOUBLE(10,2),
+    Quantity_On_Stock INT*/
 
-        return sqlUtil.execute("INSERT INTO Product VALUES(?,?,?,?,?)",dto.getProduct_ID(),dto.getName(),dto.getDescription(),dto.getPrice(),dto.getQuantityOnStock());
+        return sqlUtil.execute("INSERT INTO Product (Product_ID,name,Description,Price,Quantity_On_Stock)VALUES(?,?,?,?,?)",entity.getProduct_ID(),entity.getName(),entity.getDescription(),entity.getPrice(),entity.getQuantityOnStock());
 
     }
    @Override
-    public boolean update(final ProductDto tm) throws SQLException {
+    public boolean update(final Product entity) throws SQLException {
         /*Connection connection=DbConnection.getInstance().getConnection();
         String sql="UPDATE Product SET name=?,Description=?,Price=?,Quantity_On_Stock=? WHERE Product_ID=?";
         PreparedStatement preparedStatement= connection.prepareStatement(sql);
@@ -49,7 +55,7 @@ public class ProductModel implements ProductDAO {
         boolean  isUpdated=preparedStatement.executeUpdate()>0;
         return isUpdated;*/
 
-        return sqlUtil.execute("UPDATE Product SET name=?,Description=?,Price=?,Quantity_On_Stock=? WHERE Product_ID=?",tm.getName(),tm.getDescription(),tm.getPrice(),tm.getQuantityOnStock(),tm.getProduct_ID());
+        return sqlUtil.execute("UPDATE Product SET name=?,Description=?,Price=?,Quantity_On_Stock=? WHERE Product_ID=?",entity.getName(),entity.getDescription(),entity.getPrice(),entity.getQuantityOnStock(),entity.getProduct_ID());
     }
     @Override
     public boolean delete(String Product_ID) throws SQLException {
@@ -66,7 +72,7 @@ public class ProductModel implements ProductDAO {
 
     }
     @Override
-    public List<ProductDto> loadAllProduct() throws SQLException {
+    public List<Product> loadAllProduct() throws SQLException {
       /*  Connection connection = DbConnection.getInstance().getConnection();
 
         String sql = "SELECT * FROM Product";
@@ -74,10 +80,10 @@ public class ProductModel implements ProductDAO {
 
         ResultSet resultSet=sqlUtil.execute("SELECT * FROM Product");
 
-        List<ProductDto> proList= new ArrayList<>();
+        List<Product> proList= new ArrayList<>();
 
         while (resultSet.next()) {
-            proList.add(new ProductDto(
+            proList.add(new Product(
                     resultSet.getString(1),
                     resultSet.getString(2),
                     resultSet.getString(3),
@@ -87,13 +93,13 @@ public class ProductModel implements ProductDAO {
         return proList;
     }
 @Override
-    public List<ProductDto> getAll() throws SQLException {
+    public List<Product> getAll() throws SQLException {
     /*    Connection connection = DbConnection.getInstance().getConnection();
 
         String sql = "SELECT * FROM Product";
         PreparedStatement pstm = connection.prepareStatement(sql);*/
 
-        List<ProductDto> dtoList = new ArrayList<>();
+        List<Product> dtoList = new ArrayList<>();
 
         //ResultSet resultSet = pstm.executeQuery();
 
@@ -107,14 +113,14 @@ public class ProductModel implements ProductDAO {
           //  int QTY=resultSet.getInt(5);
             int Quantity_On_Stock=resultSet.getInt(5);
 
-            var dto = new ProductDto(Product_ID,Name,Description,Price,Quantity_On_Stock);
-            dtoList.add(dto);
+            var entity = new Product(Product_ID,Name,Description,Price,Quantity_On_Stock);
+            dtoList.add(entity);
         }
         return dtoList;
     }
 
     @Override
-    public ProductDto  search(String id) throws SQLException {
+    public Product  search(String id) throws SQLException {
       /*  Connection connection = DbConnection.getInstance().getConnection();
 
         String sql = "SELECT * FROM Product WHERE Product_ID = ?";
@@ -125,7 +131,7 @@ public class ProductModel implements ProductDAO {
 
         ResultSet resultSet=sqlUtil.execute("SELECT * FROM Product WHERE Product_ID = ?",id);
 
-        ProductDto dto = null;
+        Product entity = null;
 
         if(resultSet.next()) {
             String product_id = resultSet.getString(1);
@@ -133,12 +139,12 @@ public class ProductModel implements ProductDAO {
             String desc= resultSet.getString(3);
             Double Price = resultSet.getDouble(4);
         //    Integer QTY=Integer.valueOf(resultSet.getString(6));
-            Integer Quantity_On_Stock=Integer.valueOf(resultSet.getString(5));
+            int Quantity_On_Stock=Integer.valueOf(resultSet.getString(5));
 
-            dto = new ProductDto(product_id, product_name, desc, Price,Quantity_On_Stock);
+            entity = new Product(product_id, product_name, desc, Price,Quantity_On_Stock);
         }
 
-        return dto;
+        return entity;
     }
 
     @Override
@@ -165,7 +171,7 @@ public class ProductModel implements ProductDAO {
         return sqlUtil.execute("UPDATE Product SET Quantity_On_Stock = Quantity_On_Stock -? WHERE Product_ID = ?",cartTm.getQty(),cartTm.getCode());
     }
 
- @Override
+
     public List<ProductDto> searchProductByName(String name) throws SQLException {
     Connection connection=  DbConnection.getInstance().getConnection();
         List<ProductDto> productList = new ArrayList<>();
@@ -176,14 +182,14 @@ public class ProductModel implements ProductDAO {
 
             try (ResultSet resultSet = pst.executeQuery()) {
                 while (resultSet.next()) {
-                    ProductDto productDto = new ProductDto(
+                    ProductDto dto = new ProductDto(
                             resultSet.getString("Product_ID"),
                             resultSet.getString("name"),
                             resultSet.getString("Description"),
                             resultSet.getDouble("Price"),
                             resultSet.getInt("Quantity_On_Stock")
                     );
-                    productList.add(productDto);
+                    productList.add(dto);
                 }
             }
         }

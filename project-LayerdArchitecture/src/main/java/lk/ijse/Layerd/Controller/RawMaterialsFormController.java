@@ -12,6 +12,10 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import lk.ijse.Layerd.bo.custom.Impl.RawMaterialsBOImpl;
+import lk.ijse.Layerd.bo.custom.Impl.SupplierBOImpl;
+import lk.ijse.Layerd.bo.custom.RawMaterialsBO;
+import lk.ijse.Layerd.bo.custom.SupplierBO;
 import lk.ijse.Layerd.dao.custom.Impl.Bill_OF_MaterialModel;
 import lk.ijse.Layerd.dao.custom.Impl.RawMaterialModel;
 import lk.ijse.Layerd.dao.custom.Impl.SupplierDetailsModel;
@@ -120,8 +124,12 @@ public class RawMaterialsFormController {
      private  final SupplierDetailsModel supplierDetailsModel=new SupplierDetailsModel();
     private  final Bill_OF_MaterialModel billOfMaterialModel=new Bill_OF_MaterialModel();
 /////
-    RawMaterialsDAO rawMaterialsDAO=new RawMaterialModel();
-    SupplierDAO supplierDAO=new SupplierModel();
+   /* RawMaterialsDAO rawMaterialsDAO=new RawMaterialModel();
+    SupplierDAO supplierDAO=new SupplierModel();*/
+
+    RawMaterialsBO rawMaterialsBO=new RawMaterialsBOImpl();
+    SupplierBO supplierBO=new SupplierBOImpl();
+
 
 
     @FXML
@@ -183,7 +191,9 @@ public class RawMaterialsFormController {
         try{
           //  boolean isDeleted= model.deleteMaterial(RawMaterial_ID);
 
-            boolean isDeleted=rawMaterialsDAO.delete(RawMaterial_ID);
+           // boolean isDeleted=rawMaterialsDAO.delete(RawMaterial_ID);
+
+            boolean isDeleted= rawMaterialsBO.deleteMaterial(RawMaterial_ID);
             if(isDeleted){
                 tableRawMaterial.refresh();
                 new Alert(Alert.AlertType.CONFIRMATION,"Material Deleted").show();
@@ -302,8 +312,9 @@ public class RawMaterialsFormController {
         ObservableList<String> obList = FXCollections.observableArrayList();
         try {
            // List<SupplierDto> cusList = supplierModel.getAllSuppliers();
-            List<SupplierDto> cusList = supplierDAO.getAll();
+           // List<SupplierDto> cusList = supplierDAO.getAll();
 
+            List<SupplierDto> cusList = supplierBO.getAllSuppliers();
             for (SupplierDto dto : cusList) {
                 obList.add(dto.getSupplier_ID());
             }
@@ -328,7 +339,8 @@ public class RawMaterialsFormController {
         try {
             //List<RawMaterialDto> dtoList = model.getAllMaterials();
 
-            List<RawMaterialDto> dtoList = rawMaterialsDAO.getAll();
+            //List<RawMaterialDto> dtoList = rawMaterialsDAO.getAll();
+            List<RawMaterialDto> dtoList = rawMaterialsBO.getAllMaterials();
 
             for(RawMaterialDto dto : dtoList) {
                 obList.add(
@@ -363,7 +375,8 @@ public class RawMaterialsFormController {
 
             try {
               //  boolean isSaved = model.saveRawMaterials(dto);
-                boolean isSaved = rawMaterialsDAO.save(dto);
+               // boolean isSaved = rawMaterialsDAO.save(dto);
+                boolean isSaved = rawMaterialsBO.saveRawMaterials(dto);
 
                 //////
                /* List<RawMaterialDto> RawMaterialDto=new ArrayList<>();
@@ -401,7 +414,7 @@ public class RawMaterialsFormController {
 
  //2)
         String name=txtMaterial_Name.getText();
-        boolean isNameValidated=Pattern.matches("[A-Za-z]{1,}",name);
+        boolean isNameValidated=Pattern.matches("[A-Za-z]+",name);
 
 
 
@@ -452,7 +465,8 @@ public class RawMaterialsFormController {
         try {
            // boolean isUpdated = model.updateMaterials(dto);
 
-            boolean isUpdated = rawMaterialsDAO.update(dto);
+            //boolean isUpdated = rawMaterialsDAO.update(dto);
+            boolean isUpdated = rawMaterialsBO.updateMaterials(dto);
             if (isUpdated) {
                 new Alert(Alert.AlertType.CONFIRMATION, "material updated").showAndWait();
 
@@ -497,7 +511,8 @@ public class RawMaterialsFormController {
         try {
           //  RawMaterialDto dto = model.searchMaterial(id);
 
-            RawMaterialDto dto = rawMaterialsDAO.search(id);
+         //   RawMaterialDto dto = rawMaterialsDAO.search(id);
+            RawMaterialDto dto = rawMaterialsBO.searchMaterial(id);
 
             if(dto != null) {
                 fillFields(dto);

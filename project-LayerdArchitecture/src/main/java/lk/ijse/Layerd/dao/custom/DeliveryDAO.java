@@ -1,12 +1,12 @@
 package lk.ijse.Layerd.dao.custom;
 
 import lk.ijse.Layerd.dao.CrudDAO;
-import lk.ijse.Layerd.dto.DeliveryDto;
+import lk.ijse.Layerd.entity.Delivery;
 
 import java.sql.SQLException;
 import java.util.List;
 
-public interface DeliveryDAO extends CrudDAO<DeliveryDto> {
+public interface DeliveryDAO extends CrudDAO<Delivery> {
    /*  boolean saveDeliveryDetails (final DeliveryDto dto) throws SQLException ;
 
      boolean updateDeliveryDetails(final DeliveryDto dto) throws SQLException ;

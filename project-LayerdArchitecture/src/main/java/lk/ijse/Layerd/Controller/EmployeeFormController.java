@@ -16,6 +16,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+import lk.ijse.Layerd.bo.custom.EmployeeBO;
+import lk.ijse.Layerd.bo.custom.Impl.EmployeeBOImpl;
 import lk.ijse.Layerd.dao.custom.EmployeeDAO;
 import lk.ijse.Layerd.dao.custom.Impl.EmployeeModel;
 import lk.ijse.Layerd.db.DbConnection;
@@ -112,7 +114,8 @@ public class EmployeeFormController {
     @FXML
     private TextField txtTelephone;
 
-    EmployeeDAO employeeDAO=new lk.ijse.Layerd.dao.custom.Impl.EmployeeModel();
+    //EmployeeDAO employeeDAO=new lk.ijse.Layerd.dao.custom.Impl.EmployeeModel();
+    EmployeeBO employeeBO=new EmployeeBOImpl();
 
     @FXML
     void btnBackOnAction(ActionEvent event) throws IOException {
@@ -176,7 +179,8 @@ public class EmployeeFormController {
 
         try{
           //  boolean isDeleted= model.deleteEmployee(E_ID);
-            boolean isDeleted=employeeDAO.delete(E_ID);
+          //  boolean isDeleted=employeeDAO.delete(E_ID);
+            boolean isDeleted= employeeBO.deleteEmployee(E_ID);
             if(isDeleted){
                 tableEmployee.refresh();
                 new Alert(Alert.AlertType.CONFIRMATION,"Employee deleted ").show();
@@ -321,7 +325,8 @@ public class EmployeeFormController {
 
         try {
             //List<EmployeeDto> dtoList = model.getAllEmployee();
-            List<EmployeeDto> dtoList = employeeDAO.getAll();
+            //List<EmployeeDto> dtoList = employeeDAO.getAll();
+            List<EmployeeDto> dtoList = employeeBO.getAllEmployee();
 
             for(EmployeeDto dto : dtoList) {
                 obList.add(
@@ -354,7 +359,8 @@ public class EmployeeFormController {
          //  var model = new EmployeeModel();
            try {
               // boolean isSaved = model.saveEmployee(dto);
-               boolean isSaved=employeeDAO.save(dto);
+              // boolean isSaved=employeeDAO.save(dto);
+               boolean isSaved= employeeBO.saveEmployee(dto);
                if (isSaved) {
                    new Alert(Alert.AlertType.CONFIRMATION, "Employee is saved ").showAndWait();
 
@@ -403,7 +409,7 @@ public class EmployeeFormController {
 
  //2)
         String name=txtName.getText();
-        boolean isNameValidated=Pattern.matches("[A-Za-z]{3,}",name);
+        boolean isNameValidated=Pattern.matches("[A-Za-z ]+",name);
 
   //3)
         String jobTitle =txtJobTitle.getText();
@@ -474,7 +480,8 @@ public class EmployeeFormController {
             try {
                // boolean isUpdated = model.updateEmployee(dto);
 
-                boolean isUpdated=employeeDAO.update(dto);
+                //boolean isUpdated=employeeDAO.update(dto);
+                boolean isUpdated= employeeBO.updateEmployee(dto);
                 if (isUpdated) {
                     new Alert(Alert.AlertType.CONFIRMATION, "Employee is Updated").showAndWait();
                     /////
@@ -505,7 +512,8 @@ public class EmployeeFormController {
         var model = new EmployeeModel();
         try {
           //  EmployeeDto dto = model.searchEmployee(id);
-            EmployeeDto dto=employeeDAO.search(id);
+           // EmployeeDto dto=employeeDAO.search(id);
+            EmployeeDto dto=employeeBO.searchEmployee(id);
 
             if(dto != null) {
                 fillFields(dto);

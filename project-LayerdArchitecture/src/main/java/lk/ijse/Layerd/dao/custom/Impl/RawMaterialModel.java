@@ -5,6 +5,8 @@ import lk.ijse.Layerd.dao.custom.RawMaterialsDAO;
 import lk.ijse.Layerd.dao.sqlUtil;
 import lk.ijse.Layerd.db.DbConnection;
 import lk.ijse.Layerd.dto.RawMaterialDto;
+import lk.ijse.Layerd.entity.RawMaterial;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,7 +17,7 @@ import java.util.List;
 public class RawMaterialModel implements RawMaterialsDAO {
 
    @Override
-    public  boolean save(final RawMaterialDto dto) throws SQLException {
+    public  boolean save(final RawMaterial entity) throws SQLException {
        /* Connection connection = DbConnection.getInstance().getConnection();
 
         String sql = "INSERT INTO RawMaterial  VALUES(?,?,?,?)";
@@ -28,10 +30,10 @@ public class RawMaterialModel implements RawMaterialsDAO {
         boolean isSaved = preparedStatement.executeUpdate() > 0;
         return isSaved;*/
 
-        return sqlUtil.execute("INSERT INTO RawMaterial  VALUES(?,?,?,?)",dto.getRawMaterial_ID(),dto.getMaterialName(),dto.getQty(),dto.getSupplier_ID());
+        return sqlUtil.execute("INSERT INTO RawMaterial  VALUES(?,?,?,?)",entity.getRawMaterial_ID(),entity.getMaterialName(),entity.getQty(),entity.getSupplier_ID());
     }
  @Override
-    public boolean update(final RawMaterialDto dto) throws SQLException {
+    public boolean update(final RawMaterial entity) throws SQLException {
        /* Connection connection = DbConnection.getInstance().getConnection();
 
         String sql = "UPDATE RawMaterial SET MaterialName=?,Supplier_ID=?,QTY=? WHERE RawMaterial_ID=?";
@@ -46,7 +48,7 @@ public class RawMaterialModel implements RawMaterialsDAO {
         boolean isUpdated = preparedStatement.executeUpdate() > 0;
         return isUpdated;*/
 
-        return sqlUtil.execute("UPDATE RawMaterial SET MaterialName=?,Supplier_ID=?,QTY=? WHERE RawMaterial_ID=?",dto.getMaterialName(), dto.getSupplier_ID(),dto.getQty(),dto.getRawMaterial_ID());
+        return sqlUtil.execute("UPDATE RawMaterial SET MaterialName=?,Supplier_ID=?,QTY=? WHERE RawMaterial_ID=?",entity.getMaterialName(), entity.getSupplier_ID(),entity.getQty(),entity.getRawMaterial_ID());
 
 
     }
@@ -65,13 +67,13 @@ public class RawMaterialModel implements RawMaterialsDAO {
 
     }
 @Override
-    public List<RawMaterialDto> getAll() throws SQLException {
+    public List<RawMaterial> getAll() throws SQLException {
        /* Connection connection = DbConnection.getInstance().getConnection();
 
         String sql = "SELECT * FROM RawMaterial";
         PreparedStatement pstm = connection.prepareStatement(sql);*/
 
-        List<RawMaterialDto> dtoList = new ArrayList<>();
+        List<RawMaterial> dtoList = new ArrayList<>();
 
         //ResultSet resultSet = pstm.executeQuery();
 
@@ -83,13 +85,13 @@ public class RawMaterialModel implements RawMaterialsDAO {
             Integer Qty = Integer.parseInt(resultSet.getString(3));
             String Supplier_ID=resultSet.getString(4);
 
-            var dto = new RawMaterialDto(RawMaterial_ID,MaterialName,Qty,Supplier_ID);
-            dtoList.add(dto);
+            var entity = new RawMaterial(RawMaterial_ID,MaterialName,Qty,Supplier_ID);
+            dtoList.add(entity);
         }
         return dtoList;
     }
  @Override
-    public RawMaterialDto  search(String id) throws SQLException {
+    public RawMaterial search(String id) throws SQLException {
        /* Connection connection = DbConnection.getInstance().getConnection();
 
         String sql = "SELECT * FROM RawMaterial  WHERE RawMaterial_ID= ?";
@@ -100,31 +102,31 @@ public class RawMaterialModel implements RawMaterialsDAO {
 
         ResultSet resultSet=sqlUtil.execute("SELECT * FROM RawMaterial  WHERE RawMaterial_ID= ?",id);
 
-        RawMaterialDto dto = null;
+        RawMaterial entity = null;
 
         if(resultSet.next()) {
             String RawMaterial_ID= resultSet.getString(1);
             String MaterialName= resultSet.getString(2);
-            Integer Qty = Integer.parseInt(resultSet.getString(3));
+            int Qty = Integer.parseInt(resultSet.getString(3));
             String Supplier_ID=resultSet.getString(4);
 
 
-            dto = new RawMaterialDto(RawMaterial_ID,MaterialName,Qty,Supplier_ID);
+            entity = new RawMaterial(RawMaterial_ID,MaterialName,Qty,Supplier_ID);
         }
 
-        return dto;
+        return entity;
     }
 @Override
-public boolean isStockUpdated( List<RawMaterialDto> tmList) throws SQLException {
-    for (RawMaterialDto dto : tmList) {
-        if(!isStockUpdated( dto)) {
+public boolean isStockUpdated( List<RawMaterial> tmList) throws SQLException {
+    for (RawMaterial entity : tmList) {
+        if(!isStockUpdated(entity)) {
             return false;
         }
     }
     return true;
 }
 
-    private boolean isStockUpdated(RawMaterialDto dto) throws SQLException {
+    private boolean isStockUpdated(RawMaterial entity) throws SQLException {
        /* Connection connection = DbConnection.getInstance().getConnection();
 
         String sql = "INSERT INTO RawMaterial VALUES(?, ?, ?, ?)";
@@ -136,7 +138,7 @@ public boolean isStockUpdated( List<RawMaterialDto> tmList) throws SQLException 
 
         return pstm.executeUpdate() > 0;*/
 
-        return  sqlUtil.execute("INSERT INTO RawMaterial VALUES(?, ?, ?, ?)",dto.getRawMaterial_ID(),dto.getMaterialName(),dto.getQty(),dto.getSupplier_ID());
+        return  sqlUtil.execute("INSERT INTO RawMaterial VALUES(?, ?, ?, ?)",entity.getRawMaterial_ID(),entity.getMaterialName(),entity.getQty(),entity.getSupplier_ID());
     }
 
 

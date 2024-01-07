@@ -12,6 +12,10 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import lk.ijse.Layerd.bo.custom.EmployeeBO;
+import lk.ijse.Layerd.bo.custom.Impl.EmployeeBOImpl;
+import lk.ijse.Layerd.bo.custom.Impl.SupplierBOImpl;
+import lk.ijse.Layerd.bo.custom.SupplierBO;
 import lk.ijse.Layerd.dao.custom.Impl.EmployeeModel;
 import lk.ijse.Layerd.dao.custom.Impl.OrderDetailModel;
 import lk.ijse.Layerd.dao.custom.Impl.SupplierModel;
@@ -112,10 +116,12 @@ public class SupplierFormController {
     @FXML
     private ComboBox<?> cmbOrder_ID;
 
-    private  final EmployeeModel employeeModel=new EmployeeModel();
+
     private final OrderDetailModel orderDetailModel=new OrderDetailModel();
 
-    SupplierDAO supplierDAO=new SupplierModel();
+   // SupplierDAO supplierDAO=new SupplierModel();
+    SupplierBO supplierBO=new SupplierBOImpl();
+
 
     @FXML
     void btnBackOnAction(ActionEvent event) throws IOException {
@@ -177,7 +183,8 @@ public class SupplierFormController {
         try{
             //boolean isDeleted= model.deleteSupplier(Supplier_ID);
 
-            boolean isDeleted= supplierDAO.delete(Supplier_ID);
+          //  boolean isDeleted= supplierDAO.delete(Supplier_ID);
+            boolean isDeleted=supplierBO.deleteSupplier(Supplier_ID);
             if(isDeleted){
                 tableSupplier.refresh();
                 new Alert(Alert.AlertType.CONFIRMATION,"Supplier deleted successfully").show();
@@ -323,7 +330,9 @@ public class SupplierFormController {
         try {
            // List<SupplierDto> dtoList = model.getAllSuppliers();
 
-            List<SupplierDto> dtoList = supplierDAO.getAll();
+            //List<SupplierDto> dtoList = supplierDAO.getAll();
+
+            List<SupplierDto> dtoList = supplierBO.getAllSuppliers();
 
             for(SupplierDto dto : dtoList) {
                 obList.add(
@@ -359,7 +368,8 @@ public class SupplierFormController {
             try {
                // boolean isSaved = model.saveSupplier(dto);
 
-                boolean isSaved =supplierDAO.save(dto);
+               // boolean isSaved =supplierDAO.save(dto);
+                boolean isSaved = supplierBO.saveSupplier(dto);
                 if (isSaved) {
                     new Alert(Alert.AlertType.CONFIRMATION, "Supplier Saved").showAndWait();
                     /////
@@ -393,16 +403,16 @@ public class SupplierFormController {
 
         }
         String name=txtName.getText();
-        boolean isSupplierNameValidated=Pattern.matches("[A-Za-z]{3,}",name);
+        boolean isSupplierNameValidated=Pattern.matches("[A-Za-z]+",name);
         if (!isSupplierNameValidated) {
             new Alert(Alert.AlertType.ERROR, "invalid Supplier name").show();
             return false;
         }
 
         String address=txtAddress.getText();
-        boolean isAddressValidated=Pattern.matches("[A-Za-z]{3,}",address);
+        boolean isAddressValidated=Pattern.matches(".{3,}",address);
         if(!isAddressValidated) {
-            new Alert(Alert.AlertType.ERROR, "invalid Supplier address").show();
+            new Alert(Alert.AlertType.ERROR, "invalid Supplier address,Address should be at least 3 characters long").show();
             return false;
         }
 
@@ -437,7 +447,9 @@ public class SupplierFormController {
             try {
                // boolean isUpdated = model.updateSupplier(dto);
 
-                boolean isUpdated = supplierDAO.update(dto);
+              //  boolean isUpdated = supplierDAO.update(dto);
+
+                boolean isUpdated = supplierBO.updateSupplier(dto);
                 if (isUpdated) {
                     new Alert(Alert.AlertType.CONFIRMATION, "Supplier is Updated").showAndWait();
 
@@ -489,7 +501,8 @@ public class SupplierFormController {
         try {
          //  SupplierDto dto = model.searchSupplier(id);
 
-            SupplierDto dto = supplierDAO.search(id);
+           // SupplierDto dto = supplierDAO.search(id);
+            SupplierDto dto = supplierBO.searchSupplier(id);
 
             if(dto != null) {
                 fillFields(dto);

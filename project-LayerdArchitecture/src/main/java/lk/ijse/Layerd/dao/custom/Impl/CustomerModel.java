@@ -3,6 +3,7 @@ package lk.ijse.Layerd.dao.custom.Impl;
 import lk.ijse.Layerd.dao.custom.CustomerDAO;
 import lk.ijse.Layerd.dao.sqlUtil;
 import lk.ijse.Layerd.dto.CustomerDto;
+import lk.ijse.Layerd.entity.Customer;
 import lk.ijse.Layerd.view.tdm.CustomerTm;
 import lk.ijse.Layerd.view.tdm.CustomerTmDis;
 
@@ -13,26 +14,26 @@ import java.util.List;
 
 public class CustomerModel implements CustomerDAO {
     @Override
-    public boolean deleteCustomer(String C_ID) throws SQLException {
+    public boolean delete(String C_ID) throws SQLException {
         return sqlUtil.execute("DELETE  FROM Customer WHERE C_ID=?",C_ID);
     }
 
     @Override
-    public boolean saveCustomer(CustomerTmDis dto) throws SQLException {
-        return sqlUtil.execute("INSERT INTO Customer VALUES(?,?,?,?,?)",dto.getC_ID(),dto.getName(),dto.getAddress(),dto.getLoyaltyStatus(),dto.getTel());
+    public boolean save(Customer entity) throws SQLException {
+        return sqlUtil.execute("INSERT INTO Customer VALUES(?,?,?,?,?)",entity.getC_ID(),entity.getName(),entity.getAddress(),entity.getLoyaltyStatus(),entity.getTel());
     }
 
     @Override
-    public boolean updateCustomer(CustomerDto dto) throws SQLException {
+    public boolean update(Customer entity) throws SQLException {
 
-        return sqlUtil.execute("UPDATE Customer  SET name=?,address=?,LoyaltyStatus=?,tel=? WHERE C_ID=?",dto.getName(),dto.getAddress(),dto.getLoyaltyStatus(),dto.getTel(),dto.getC_ID());
+        return sqlUtil.execute("UPDATE Customer  SET name=?,address=?,LoyaltyStatus=?,tel=? WHERE C_ID=?",entity.getName(),entity.getAddress(),entity.getLoyaltyStatus(),entity.getTel(),entity.getC_ID());
     }
 
     @Override
-    public CustomerDto searchCustomer(String id) throws SQLException {
+    public Customer search(String id) throws SQLException {
         ResultSet resultSet=sqlUtil.execute("SELECT * FROM Customer WHERE C_ID = ?",id);
 
-        CustomerDto dto = null;
+        Customer entity = null;
 
         if(resultSet.next()) {
             String cus_id = resultSet.getString(1);
@@ -41,15 +42,15 @@ public class CustomerModel implements CustomerDAO {
             String cus_tel = resultSet.getString(4);
             String LoyeltyStatus=resultSet.getString(5);
 
-            dto = new CustomerDto(cus_id, cus_name, cus_address, cus_tel,LoyeltyStatus);
+            entity = new Customer(cus_id, cus_name, cus_address, cus_tel,LoyeltyStatus);
         }
 
-        return dto;
+        return entity;
     }
 
     @Override
-    public List<CustomerDto> getAllCustomers() throws SQLException {
-        List<CustomerDto> dtoList = new ArrayList<>();
+    public List<Customer> getAll() throws SQLException {
+        List<Customer> dtoList = new ArrayList<>();
 
         // ResultSet resultSet = pstm.executeQuery();
 
@@ -62,8 +63,8 @@ public class CustomerModel implements CustomerDAO {
             String cus_tel = resultSet.getString(4);
             String LoyaltyStatus=resultSet.getString(5);
 
-            var dto = new CustomerDto(cus_id, cus_name, cus_address, cus_tel,LoyaltyStatus);
-            dtoList.add(dto);
+            var entity= new Customer(cus_id, cus_name, cus_address, cus_tel,LoyaltyStatus);
+            dtoList.add(entity);
         }
         return dtoList;
     }

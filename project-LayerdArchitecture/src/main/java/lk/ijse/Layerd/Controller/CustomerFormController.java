@@ -16,6 +16,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+import lk.ijse.Layerd.bo.custom.CustomerBO;
+import lk.ijse.Layerd.bo.custom.Impl.CustomerBOImpl;
 import lk.ijse.Layerd.dao.custom.CustomerDAO;
 import lk.ijse.Layerd.dao.custom.Impl.CustomerModel;
 import lk.ijse.Layerd.dao.custom.Impl.OrdersModel;
@@ -115,8 +117,8 @@ public class CustomerFormController {
 
     private  final OrdersModel ordersModel=new OrdersModel();
 
-    CustomerDAO customerDAO=new lk.ijse.Layerd.dao.custom.Impl.CustomerModel();
-
+ //   CustomerDAO customerDAO=new lk.ijse.Layerd.dao.custom.Impl.CustomerModel();
+     CustomerBO customerBO=new CustomerBOImpl();
 
     @FXML
     void btnBackOnAction(ActionEvent event) throws IOException {
@@ -168,7 +170,8 @@ public class CustomerFormController {
         try {
            // boolean isDeleted= model.deleteCustomer(C_ID);
 
-            boolean isDeleted=customerDAO.deleteCustomer(C_ID);
+           // boolean isDeleted=customerDAO.deleteCustomer(C_ID);
+            boolean isDeleted=customerBO.deleteCustomer(C_ID);
             if(isDeleted){
                 tableCustomer.refresh();
                 new Alert(Alert.AlertType.CONFIRMATION,"Customer deleted successfully").show();
@@ -319,7 +322,8 @@ public class CustomerFormController {
         try {
           //  List<CustomerDto> dtoList = model.getAllCustomers();
 
-            List<CustomerDto> dtoList=customerDAO.getAllCustomers();
+           // List<CustomerDto> dtoList=customerDAO.getAllCustomers();
+            List<CustomerDto> dtoList=customerBO.getAllCustomers();
 
             for(CustomerDto dto : dtoList) {
                 obList.add(
@@ -351,17 +355,19 @@ public class CustomerFormController {
             String Address = txtAddress.getText();
             String Tel = txtTelephone.getText();
             String LoyaltyStatus = columnLoyalatyStatus.getText();
-            double discountPercentage = determineDiscountPercentage();
+          //  double discountPercentage = determineDiscountPercentage();
 
            // var dto = new CustomerDto(C_ID, name, Address, LoyaltyStatus, Tel);
-            var dto=new CustomerTmDis(C_ID, name, Address,LoyaltyStatus,discountPercentage,Tel);
+          //  discountPercentage
+            var dto=new CustomerDto(C_ID, name, Address,LoyaltyStatus,Tel);
 
            // var model = new CustomerModel();
 
             try {
                // boolean isSaved = model.saveCustomer(dto);
 
-                boolean isSaved=customerDAO.saveCustomer(dto);
+                //boolean isSaved=customerDAO.saveCustomer(dto);
+                boolean isSaved=customerBO.saveCustomer(dto);
                 if (isSaved) {
                     new Alert(Alert.AlertType.CONFIRMATION, "Customer Saved").showAndWait();
                     ////
@@ -419,11 +425,11 @@ public class CustomerFormController {
 
  //2)
          String name=txtName.getText();
-          boolean isCustomerNameValidated=Pattern.matches("[A-Za-z]{3,}",name);
+          boolean isCustomerNameValidated=Pattern.matches("[A-Za-z ]+",name);
 
   //3)
         String address=txtAddress.getText();
-        boolean isAddressValidated=Pattern.matches("[A-Za-z]{3,}",address);
+        boolean isAddressValidated=Pattern.matches(".{3,}",address);
 
  //4)
         String tel=txtTelephone.getText();
@@ -493,7 +499,8 @@ public class CustomerFormController {
             try {
               //  boolean isUpdated = model.updateCustomer(dto);
 
-                boolean isUpdated=customerDAO.updateCustomer(dto);
+                //boolean isUpdated=customerDAO.updateCustomer(dto);
+                boolean isUpdated=customerBO.updateCustomer(dto);
                 if (isUpdated) {
                     new Alert(Alert.AlertType.CONFIRMATION, "Customer is Updated").showAndWait();
 
@@ -529,7 +536,8 @@ public class CustomerFormController {
         try {
           //  CustomerDto dto = model.searchCustomer(id);
 
-            CustomerDto dto=customerDAO.searchCustomer(id);
+           // CustomerDto dto=customerDAO.searchCustomer(id);
+            CustomerDto dto=customerBO.searchCustomer(id);
 
             if(dto != null) {
                 fillFields(dto);

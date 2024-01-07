@@ -3,6 +3,7 @@ package lk.ijse.Layerd.dao.custom;
 import lk.ijse.Layerd.dao.CrudDAO;
 import lk.ijse.Layerd.dao.sqlUtil;
 import lk.ijse.Layerd.dto.OrderDto;
+import lk.ijse.Layerd.entity.Orders;
 import lk.ijse.Layerd.view.tdm.OrdersTm;
 
 import java.sql.ResultSet;
@@ -11,7 +12,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public interface OrdersDAO extends CrudDAO<OrdersTm> {
+public interface OrdersDAO extends CrudDAO<Orders> {
      /*boolean saveOrders(final OrdersTm Tm) throws SQLException ;
 
      boolean updateOrders(OrdersTm Tm) throws SQLException ;

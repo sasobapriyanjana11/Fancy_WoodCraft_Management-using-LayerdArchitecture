@@ -4,6 +4,7 @@ import lk.ijse.Layerd.dao.custom.OrdersDAO;
 import lk.ijse.Layerd.dao.sqlUtil;
 import lk.ijse.Layerd.db.DbConnection;
 import lk.ijse.Layerd.dto.OrderDto;
+import lk.ijse.Layerd.entity.Orders;
 import lk.ijse.Layerd.view.tdm.OrdersTm;
 
 import java.sql.Connection;
@@ -16,7 +17,7 @@ import java.util.List;
 
 public class OrdersModel implements OrdersDAO {
     @Override
-    public boolean save(final OrdersTm Tm) throws SQLException {
+    public boolean save(final Orders entity) throws SQLException {
       /*  Connection connection = DbConnection.getInstance().getConnection();
 
         String sql = "INSERT INTO Orders (Order_ID,date,C_ID) VALUES (?,?,?)";
@@ -27,10 +28,10 @@ public class OrdersModel implements OrdersDAO {
         boolean isSaved = preparedStatement.executeUpdate() > 0;
         return isSaved;*/
 
-        return sqlUtil.execute("INSERT INTO Orders (Order_ID,date,C_ID) VALUES (?,?,?)",Tm.getOrder_ID(),Tm.getDate(),Tm.getC_ID());
+        return sqlUtil.execute("INSERT INTO Orders (Order_ID,date,C_ID) VALUES (?,?,?)",entity.getOrder_ID(),entity.getDate(),entity.getC_ID());
     }
     @Override
-    public boolean update(OrdersTm Tm) throws SQLException {
+    public boolean update(Orders entity) throws SQLException {
 
       /*  Connection connection = DbConnection.getInstance().getConnection();
 
@@ -44,7 +45,7 @@ public class OrdersModel implements OrdersDAO {
         boolean isUpdated = preparedStatement.executeUpdate() > 0;
         return isUpdated;*/
 
-        return sqlUtil.execute("UPDATE Orders  SET date=?,C_ID=? WHERE Order_ID=?",Tm.getDate(),Tm.getC_ID(),Tm.getOrder_ID());
+        return sqlUtil.execute("UPDATE Orders  SET date=?,C_ID=? WHERE Order_ID=?",entity.getDate(),entity.getC_ID(),entity.getOrder_ID());
     }
 
     public static boolean saveOrder(String orderId, String cusId, LocalDate date) throws SQLException {
@@ -76,7 +77,7 @@ public class OrdersModel implements OrdersDAO {
 
     }
     @Override
-    public OrdersTm search(String id) throws SQLException {
+    public Orders search(String id) throws SQLException {
       /*  Connection connection = DbConnection.getInstance().getConnection();
 
         String sql = "SELECT * FROM Orders WHERE Order_ID = ?";
@@ -87,26 +88,26 @@ public class OrdersModel implements OrdersDAO {
 
         ResultSet resultSet=sqlUtil.execute("SELECT * FROM Orders WHERE Order_ID = ?",id);
 
-        OrdersTm dto = null;
+        Orders entity= null;
 
         if (resultSet.next()) {
             String Order_id = resultSet.getString(1);
             String C_ID = resultSet.getString(2);
             LocalDate date = LocalDate.parse(String.valueOf(resultSet.getDate(3)));
 
-            dto = new OrdersTm(Order_id, C_ID, date);
+            entity = new Orders(Order_id, C_ID, date);
         }
 
-        return dto;
+        return entity;
     }
     @Override
-    public List<OrdersTm> getAll() throws SQLException {
+    public List<Orders> getAll() throws SQLException {
        /* Connection connection = DbConnection.getInstance().getConnection();
 
         String sql = "SELECT * FROM Orders";
         PreparedStatement pstm = connection.prepareStatement(sql);*/
 
-        List<OrdersTm> dtoList = new ArrayList<>();
+        List<Orders> dtoList = new ArrayList<>();
 
        // ResultSet resultSet = pstm.executeQuery();
 
@@ -116,8 +117,8 @@ public class OrdersModel implements OrdersDAO {
             String Order_id = resultSet.getString(1);
             String C_ID = resultSet.getString(2);
             LocalDate date = LocalDate.parse(String.valueOf(resultSet.getDate(3)));
-            var Tm = new OrdersTm(Order_id, C_ID, date);
-            dtoList.add(Tm);
+            var entity = new Orders(Order_id, C_ID, date);
+            dtoList.add(entity);
         }
         return dtoList;
     }

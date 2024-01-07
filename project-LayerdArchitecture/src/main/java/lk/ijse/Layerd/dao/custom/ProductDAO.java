@@ -4,6 +4,7 @@ import lk.ijse.Layerd.dao.CrudDAO;
 import lk.ijse.Layerd.dao.sqlUtil;
 import lk.ijse.Layerd.db.DbConnection;
 import lk.ijse.Layerd.dto.ProductDto;
+import lk.ijse.Layerd.entity.Product;
 import lk.ijse.Layerd.view.tdm.CartTm;
 import lk.ijse.Layerd.view.tdm.productTm;
 
@@ -14,7 +15,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public interface ProductDAO extends CrudDAO<ProductDto> {
+public interface ProductDAO extends CrudDAO<Product> {
    /*  boolean saveProduct(final ProductDto dto) throws SQLException ;
 
     boolean updateProduct(final ProductDto tm) throws SQLException;
@@ -25,11 +26,10 @@ public interface ProductDAO extends CrudDAO<ProductDto> {
 
     List<ProductDto> getAllProduct() throws SQLException;*/
 
-    List<ProductDto> loadAllProduct() throws SQLException;
+    List<Product> loadAllProduct() throws SQLException;
 
     boolean updateItem(List<CartTm> tmList) throws SQLException;
 
 
-    List<ProductDto> searchProductByName(String name) throws SQLException;
 
 }

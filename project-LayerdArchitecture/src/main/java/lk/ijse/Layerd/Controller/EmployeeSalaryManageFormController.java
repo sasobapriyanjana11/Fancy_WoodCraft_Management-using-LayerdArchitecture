@@ -13,6 +13,10 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import lk.ijse.Layerd.bo.custom.EmployeeBO;
+import lk.ijse.Layerd.bo.custom.EmployeeSalaryBO;
+import lk.ijse.Layerd.bo.custom.Impl.EmployeeBOImpl;
+import lk.ijse.Layerd.bo.custom.Impl.EmployeeSalaryBOImpl;
 import lk.ijse.Layerd.dao.custom.EmployeeDAO;
 import lk.ijse.Layerd.dao.custom.EmployeeSalaryDAO;
 import lk.ijse.Layerd.dao.custom.Impl.EmployeeModel;
@@ -119,8 +123,11 @@ public class EmployeeSalaryManageFormController {
 
    // private  final EmployeeModel employeeModel=new EmployeeModel();
 
-    EmployeeDAO employeeDAO=new EmployeeModel();
-    EmployeeSalaryDAO employeeSalaryDAO=new EmployeeSalaryModel();
+   // EmployeeDAO employeeDAO=new EmployeeModel();
+   // EmployeeSalaryDAO employeeSalaryDAO=new EmployeeSalaryModel();
+
+    EmployeeBO employeeBO=new EmployeeBOImpl();
+    EmployeeSalaryBO employeeSalaryBO=new EmployeeSalaryBOImpl();
 
     @FXML
     void btnBackOnAction(ActionEvent event) throws IOException {
@@ -142,7 +149,7 @@ public class EmployeeSalaryManageFormController {
     }
 
     private void clearFields() {
-        txtE_ID.setText("");
+     //   txtE_ID.setText("");
         txtTelephone.setText("");
         txtPayment.setText("");
         txtSalary_ID.setText("");
@@ -183,7 +190,8 @@ public class EmployeeSalaryManageFormController {
         try{
             //boolean isDeleted= model.deleteESalaryDetails(Salary_ID);
 
-            boolean isDeleted=employeeSalaryDAO.delete(Salary_ID);
+           // boolean isDeleted=employeeSalaryDAO.delete(Salary_ID);
+            boolean isDeleted= employeeSalaryBO.deleteESalaryDetails(Salary_ID);
             if(isDeleted){
                 tableESalary.refresh();
                 new Alert(Alert.AlertType.CONFIRMATION,"Employee Salary details are  deleted ").show();
@@ -301,7 +309,8 @@ public class EmployeeSalaryManageFormController {
         ObservableList<String> obList = FXCollections.observableArrayList();
         try {
            // List<EmployeeDto> cusList = employeeModel.loadAllEmployee();
-            List<EmployeeDto> cusList = employeeDAO.loadAllEmployee();
+           // List<EmployeeDto> cusList = employeeDAO.loadAllEmployee();
+            List<EmployeeDto> cusList = employeeBO.loadAllEmployee();
 
             for (EmployeeDto dto : cusList) {
                 obList.add(dto.getE_ID());
@@ -330,7 +339,8 @@ public class EmployeeSalaryManageFormController {
         try {
           //  List<ESalaryDto> dtoList = model.getAllESalaryDetails();
 
-            List<ESalaryDto> dtoList = employeeSalaryDAO.getAll();
+          //  List<ESalaryDto> dtoList = employeeSalaryDAO.getAll();
+            List<ESalaryDto> dtoList = employeeSalaryBO.getAllESalaryDetails();
 
             for(ESalaryDto dto : dtoList) {
                 obList.add(
@@ -367,7 +377,8 @@ public class EmployeeSalaryManageFormController {
             try {
                // boolean isSaved = model.saveESalaryDetails(dto);
 
-                boolean isSaved=employeeSalaryDAO.save(dto);
+                //boolean isSaved=employeeSalaryDAO.save(dto);
+                boolean isSaved= employeeSalaryBO.saveESalaryDetails(dto);
                 if (isSaved) {
                     new Alert(Alert.AlertType.CONFIRMATION, "Employee Salary Details are saved ").showAndWait();
 
@@ -456,7 +467,8 @@ public class EmployeeSalaryManageFormController {
             try {
                 //boolean isUpdated = model.updateESalaryDetails(dto);
 
-                boolean isUpdated=employeeSalaryDAO.update(dto);
+               // boolean isUpdated=employeeSalaryDAO.update(dto);
+                boolean isUpdated= employeeSalaryBO.updateESalaryDetails(dto);
                 if (isUpdated) {
                     new Alert(Alert.AlertType.CONFIRMATION, "Employee Salary details are Updated").showAndWait();
 
@@ -505,7 +517,8 @@ public class EmployeeSalaryManageFormController {
         try {
            // ESalaryDto dto = model.searchESalaryDetails(id);
 
-            ESalaryDto dto = employeeSalaryDAO.search(id);
+           // ESalaryDto dto = employeeSalaryDAO.search(id);
+            ESalaryDto dto = employeeSalaryBO.searchESalaryDetails(id);
 
             if(dto != null) {
                 fillFields(dto);
@@ -522,13 +535,13 @@ public class EmployeeSalaryManageFormController {
         txtSalary_ID.setText(dto.getSalary_ID());
         txtTelephone.setText(dto.getTel());
         txtPayment.setText(String.valueOf(dto.getPayment()));
-        Callback<DatePicker, DateCell> DatePicker=null;
-        txtDate.setDayCellFactory(DatePicker);
+        txtDate.getValue();
 
     }
     //////
     private void setDate() {
-       Date date = Date.valueOf(valueOf(LocalDate.now()));
+
+        Date date = Date.valueOf(valueOf(LocalDate.now()));
     }
 
 

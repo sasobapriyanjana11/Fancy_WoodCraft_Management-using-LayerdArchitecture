@@ -4,6 +4,7 @@ import lk.ijse.Layerd.dao.custom.EmployeeSalaryDAO;
 import lk.ijse.Layerd.dao.sqlUtil;
 import lk.ijse.Layerd.db.DbConnection;
 import lk.ijse.Layerd.dto.ESalaryDto;
+import lk.ijse.Layerd.entity.ESalary;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,7 +15,7 @@ import java.util.List;
 
 public class EmployeeSalaryModel implements EmployeeSalaryDAO {
 @Override
-    public boolean save(final ESalaryDto dto) throws SQLException {
+    public boolean save(final ESalary entity) throws SQLException {
        /* Connection connection = DbConnection.getInstance().getConnection();
 
         String sql = "INSERT INTO Salary VALUES(?,?,?,?,?)";
@@ -27,10 +28,10 @@ public class EmployeeSalaryModel implements EmployeeSalaryDAO {
 
         boolean isSaved = preparedStatement.executeUpdate() > 0;
         return isSaved;*/
-        return sqlUtil.execute("INSERT INTO Salary VALUES(?,?,?,?,?)",dto.getSalary_ID(),dto.getE_ID(),dto.getTel(),dto.getPayment(),dto.getDate());
+        return sqlUtil.execute("INSERT INTO Salary VALUES(?,?,?,?,?)",entity.getSalary_ID(),entity.getE_ID(),entity.getTel(),entity.getPayment(),entity.getDate());
     }
  @Override
-    public boolean update(final ESalaryDto dto) throws SQLException {
+    public boolean update(final ESalary entity) throws SQLException {
       /*  Connection connection = DbConnection.getInstance().getConnection();
 
         String sql = "UPDATE Salary SET E_ID=?,tel=?,date=?,Payment=? WHERE Salary_ID=?";
@@ -43,7 +44,7 @@ public class EmployeeSalaryModel implements EmployeeSalaryDAO {
 
         boolean isUpdated = preparedStatement.executeUpdate() > 0;
         return isUpdated;*/
-        return sqlUtil.execute("UPDATE Salary SET E_ID=?,tel=?,date=?,Payment=? WHERE Salary_ID=?",dto.getE_ID(),dto.getTel(),dto.getDate(),dto.getPayment(), dto.getSalary_ID());
+        return sqlUtil.execute("UPDATE Salary SET E_ID=?,tel=?,date=?,Payment=? WHERE Salary_ID=?",entity.getE_ID(),entity.getTel(),entity.getDate(),entity.getPayment(), entity.getSalary_ID());
     }
 @Override
     public boolean delete(String Salary_ID) throws SQLException {
@@ -59,7 +60,7 @@ public class EmployeeSalaryModel implements EmployeeSalaryDAO {
 
     }
  @Override
-    public ESalaryDto search(String id) throws SQLException {
+    public ESalary search(String id) throws SQLException {
        /* Connection connection = DbConnection.getInstance().getConnection();
 
         String sql = "SELECT * FROM Salary WHERE Salary_ID = ?";
@@ -69,7 +70,7 @@ public class EmployeeSalaryModel implements EmployeeSalaryDAO {
         ResultSet resultSet = pstm.executeQuery();*/
         ResultSet resultSet=sqlUtil.execute("SELECT * FROM Salary WHERE Salary_ID = ?",id);
 
-        ESalaryDto dto = null;
+        ESalary entity = null;
 
         if(resultSet.next()) {
             String ES_id = resultSet.getString(1);
@@ -78,19 +79,19 @@ public class EmployeeSalaryModel implements EmployeeSalaryDAO {
             Double payment = Double.valueOf(resultSet.getString(4));
             String date=resultSet.getString(5);
 
-            dto = new ESalaryDto(ES_id,E_ID,tel,date,payment);
+            entity = new ESalary(ES_id,E_ID,tel,date,payment);
         }
 
-        return dto;
+        return entity;
     }
  @Override
-    public List<ESalaryDto> getAll() throws SQLException {
+    public List<ESalary> getAll() throws SQLException {
        /* Connection connection = DbConnection.getInstance().getConnection();
 
         String sql = "SELECT * FROM Salary";
         PreparedStatement pstm = connection.prepareStatement(sql);*/
 
-        List<ESalaryDto> dtoList = new ArrayList<>();
+        List<ESalary> dtoList = new ArrayList<>();
 
        // ResultSet resultSet = pstm.executeQuery();
         ResultSet resultSet=sqlUtil.execute("SELECT * FROM Salary");
@@ -103,8 +104,8 @@ public class EmployeeSalaryModel implements EmployeeSalaryDAO {
             String date=resultSet.getString(5);
 
 
-            var dto = new ESalaryDto(ES_id,E_ID,tel,date,payment);
-            dtoList.add(dto);
+            var entity = new ESalary(ES_id,E_ID,tel,date,payment);
+            dtoList.add(entity);
         }
         return dtoList;
     }

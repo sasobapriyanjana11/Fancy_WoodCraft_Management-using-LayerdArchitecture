@@ -13,7 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import lk.ijse.Layerd.dao.custom.Impl.LoginModel;
+import lk.ijse.Layerd.dao.custom.Impl.LoginImpl;
 
 
 import java.io.IOException;
@@ -55,7 +55,7 @@ public class LoginFormController {
         void btnLoginOnAction(ActionEvent event) throws IOException, SQLException {
             String name = txtUserName.getText();
             String password = txtPassword.getText();
-            LoginModel loginModelModel = new LoginModel();
+            LoginImpl loginModelModel = new LoginImpl();
             boolean isvalidUserName =loginModelModel.searchUserUserName(name);
 
             boolean isvalidPassword =loginModelModel.searchUserPassword(password);

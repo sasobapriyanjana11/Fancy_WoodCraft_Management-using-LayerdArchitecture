@@ -12,14 +12,9 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import lk.ijse.Layerd.bo.custom.EmployeeBO;
-import lk.ijse.Layerd.bo.custom.Impl.EmployeeBOImpl;
 import lk.ijse.Layerd.bo.custom.Impl.SupplierBOImpl;
 import lk.ijse.Layerd.bo.custom.SupplierBO;
-import lk.ijse.Layerd.dao.custom.Impl.EmployeeModel;
-import lk.ijse.Layerd.dao.custom.Impl.OrderDetailModel;
-import lk.ijse.Layerd.dao.custom.Impl.SupplierModel;
-import lk.ijse.Layerd.dao.custom.SupplierDAO;
+import lk.ijse.Layerd.dao.custom.Impl.OrderDetailImpl;
 import lk.ijse.Layerd.dto.SupplierDto;
 
 
@@ -117,7 +112,7 @@ public class SupplierFormController {
     private ComboBox<?> cmbOrder_ID;
 
 
-    private final OrderDetailModel orderDetailModel=new OrderDetailModel();
+    private final OrderDetailImpl orderDetailModel=new OrderDetailImpl();
 
    // SupplierDAO supplierDAO=new SupplierModel();
     SupplierBO supplierBO=new SupplierBOImpl();

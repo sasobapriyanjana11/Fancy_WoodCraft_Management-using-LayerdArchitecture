@@ -17,16 +17,14 @@ import lk.ijse.Layerd.bo.custom.DeliveryBO;
 import lk.ijse.Layerd.bo.custom.EmployeeBO;
 import lk.ijse.Layerd.bo.custom.Impl.DeliveryBOImpl;
 import lk.ijse.Layerd.bo.custom.Impl.EmployeeBOImpl;
-import lk.ijse.Layerd.dao.custom.DeliveryDAO;
 import lk.ijse.Layerd.dao.custom.EmployeeDAO;
-import lk.ijse.Layerd.dao.custom.Impl.DeliveryModel;
-import lk.ijse.Layerd.dao.custom.Impl.EmployeeModel;
-import lk.ijse.Layerd.dao.custom.Impl.OrderDetailModel;
-import lk.ijse.Layerd.dao.custom.Impl.OrdersModel;
+import lk.ijse.Layerd.dao.custom.Impl.DeliveryImpl;
+import lk.ijse.Layerd.dao.custom.Impl.EmployeeImpl;
+import lk.ijse.Layerd.dao.custom.Impl.OrderDetailImpl;
+import lk.ijse.Layerd.dao.custom.Impl.OrdersImpl;
 import lk.ijse.Layerd.dto.DeliveryDto;
 import lk.ijse.Layerd.dto.EmployeeDto;
 import lk.ijse.Layerd.dto.OrderDto;
-import lk.ijse.Layerd.entity.Employee;
 import lk.ijse.Layerd.view.tdm.DeliveryTm;
 
 import java.io.IOException;
@@ -132,10 +130,10 @@ public class DeliveryFormController {
     @FXML
     private ComboBox<String> cmbOrder_ID;
 
-    private final EmployeeModel employeeModel=new EmployeeModel();
-   private  final OrderDetailModel orderDetailModel=new OrderDetailModel();
-      EmployeeDAO employeeDAO=new EmployeeModel();
-   private final OrdersModel ordersModel=new OrdersModel();
+    private final EmployeeImpl employeeModel=new EmployeeImpl();
+   private  final OrderDetailImpl orderDetailModel=new OrderDetailImpl();
+      EmployeeDAO employeeDAO=new EmployeeImpl();
+   private final OrdersImpl ordersModel=new OrdersImpl();
 
 
    // DeliveryDAO deliveryDAO=new lk.ijse.Layerd.dao.custom.Impl.DeliveryModel();
@@ -357,7 +355,7 @@ public class DeliveryFormController {
     }
 
     private void loadAllDelivery() {
-        var model = new DeliveryModel();
+        var model = new DeliveryImpl();
 
         ObservableList<DeliveryTm> obList = FXCollections.observableArrayList();
 

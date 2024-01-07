@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.2.0.final using JasperReports Library version 6.2.0  -->
+<!-- 2023-11-23T14:28:48 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="EmployeeDetailsReport" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="689d4195-4b46-4bef-81e8-0237b90c6dc0">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="New Data Adapter (4)"/>
+	<queryString>
+		<![CDATA[SELECT * FROM Employee]]>
+	</queryString>
+	<field name="E_ID" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="name" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tel" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="jobTitle" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<group name="E_ID">
+		<groupExpression><![CDATA[$F{E_ID}]]></groupExpression>
+	</group>
+	<group name="name">
+		<groupExpression><![CDATA[$F{name}]]></groupExpression>
+	</group>
+	<group name="tel">
+		<groupExpression><![CDATA[$F{tel}]]></groupExpression>
+	</group>
+	<group name="jobTitle">
+		<groupExpression><![CDATA[$F{jobTitle}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="80" splitType="Stretch">
+			<staticText>
+				<reportElement positionType="FixRelativeToBottom" x="160" y="20" width="220" height="30" uuid="38ea22ee-1ba2-4ceb-ad20-b1d28d1eeaa3"/>
+				<textElement>
+					<font size="18"/>
+				</textElement>
+				<text><![CDATA[Employee Details Form]]></text>
+			</staticText>
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement x="450" y="50" width="100" height="30" uuid="7e56f124-2619-4961-956c-23e23422f25e"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="44" splitType="Stretch">
+			<staticText>
+				<reportElement x="10" y="0" width="100" height="30" uuid="aa380822-2c8c-40c9-8f3e-747f0b4ae8a2"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[E_ID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="150" y="0" width="100" height="30" uuid="4a0282c7-1bd7-4ae0-bd17-f3f964e9bb48"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="310" y="0" width="100" height="30" uuid="ba8ddeeb-842e-406f-893f-45382af724f8"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[tel]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="470" y="0" width="100" height="30" uuid="1a2b0add-4e93-4196-b0fa-0e92976ae89b"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[jobTitle]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="62" splitType="Stretch">
+			<textField>
+				<reportElement x="10" y="20" width="100" height="30" uuid="b7de7ab8-bb3d-4fd9-b315-762531d5758c"/>
+				<textFieldExpression><![CDATA[$F{E_ID}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="150" y="20" width="100" height="30" uuid="eb1e0bc4-2e20-4fa9-a708-fd43dd9718ad"/>
+				<textFieldExpression><![CDATA[$F{name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="310" y="20" width="100" height="30" uuid="e64328e6-88e5-4908-9180-0c698993b979"/>
+				<textFieldExpression><![CDATA[$F{tel}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="460" y="20" width="100" height="30" uuid="220a3f75-3d52-450d-b87c-8cb7a9a5d5ce"/>
+				<textFieldExpression><![CDATA[$F{jobTitle}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="42" splitType="Stretch">
+			<textField evaluationTime="Report">
+				<reportElement x="262" y="10" width="30" height="30" uuid="30211aaa-080b-4776-8b48-8ace915feacc"/>
+				<textFieldExpression><![CDATA[1]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
+</jasperReport>

@@ -16,13 +16,8 @@ import lk.ijse.Layerd.bo.custom.CustomerBO;
 import lk.ijse.Layerd.bo.custom.Impl.CustomerBOImpl;
 import lk.ijse.Layerd.bo.custom.Impl.OrdersBOImpl;
 import lk.ijse.Layerd.bo.custom.OrdersBO;
-import lk.ijse.Layerd.dao.custom.CustomerDAO;
-import lk.ijse.Layerd.dao.custom.Impl.Bill_OF_MaterialModel;
-import lk.ijse.Layerd.dao.custom.OrdersDAO;
 import lk.ijse.Layerd.dto.CustomerDto;
 import lk.ijse.Layerd.view.tdm.OrdersTm;
-import lk.ijse.Layerd.dao.custom.Impl.CustomerModel;
-import lk.ijse.Layerd.dao.custom.Impl.OrdersModel;
 
 import java.io.IOException;
 import java.sql.SQLException;

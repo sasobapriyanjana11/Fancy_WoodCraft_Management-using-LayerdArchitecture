@@ -18,11 +18,9 @@ import javafx.stage.Stage;
 
 import lk.ijse.Layerd.bo.custom.CustomerBO;
 import lk.ijse.Layerd.bo.custom.Impl.CustomerBOImpl;
-import lk.ijse.Layerd.dao.custom.CustomerDAO;
-import lk.ijse.Layerd.dao.custom.Impl.CustomerModel;
-import lk.ijse.Layerd.dao.custom.Impl.OrdersModel;
+import lk.ijse.Layerd.dao.custom.Impl.CustomerImpl;
+import lk.ijse.Layerd.dao.custom.Impl.OrdersImpl;
 import lk.ijse.Layerd.dto.CustomerDto;
-import lk.ijse.Layerd.view.tdm.CustomerTmDis;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -115,7 +113,7 @@ public class CustomerFormController {
     @FXML
     private TextField txtTelephone;
 
-    private  final OrdersModel ordersModel=new OrdersModel();
+    private  final OrdersImpl ordersModel=new OrdersImpl();
 
  //   CustomerDAO customerDAO=new lk.ijse.Layerd.dao.custom.Impl.CustomerModel();
      CustomerBO customerBO=new CustomerBOImpl();
@@ -532,7 +530,7 @@ public class CustomerFormController {
     void txtC_IDOnAction(ActionEvent event) {
         String id = txtC_ID.getText();
 
-        var model = new CustomerModel();
+        var model = new CustomerImpl();
         try {
           //  CustomerDto dto = model.searchCustomer(id);
 

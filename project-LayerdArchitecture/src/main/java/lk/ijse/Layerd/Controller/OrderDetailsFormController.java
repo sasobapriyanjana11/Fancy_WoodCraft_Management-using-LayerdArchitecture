@@ -48,10 +48,10 @@ public class OrderDetailsFormController {
     private final ProductModel itemModel = new ProductModel();
     private final OrdersModel orderModel = new OrdersModel();*/
 
-    CustomerDAO customerDAO=new CustomerModel();
-    ProductDAO productDAO=new ProductModel();
+    CustomerDAO customerDAO=new CustomerImpl();
+    ProductDAO productDAO=new ProductImpl();
 
-    OrdersDAO ordersDAO=new OrdersModel();
+    OrdersDAO ordersDAO=new OrdersImpl();
     private final ObservableList<CartTm> obList = FXCollections.observableArrayList();
 
     @FXML
@@ -162,10 +162,10 @@ public class OrderDetailsFormController {
     @FXML
     private Label lblUnitPrice;
 
-    private final PlaceOrderModel placeOrderModel = new PlaceOrderModel();
+    private final PlaceOrderImpl placeOrderModel = new PlaceOrderImpl();
     ProductBO productBO=new ProductBOImpl();
     CustomerBO customerBO=new CustomerBOImpl();
-    private  final Bill_OF_MaterialModel billOfMaterialModel=new Bill_OF_MaterialModel();
+    private  final Bill_OF_MaterialImpl billOfMaterialModel=new Bill_OF_MaterialImpl();
 
     public void initialize() {
         setCellValueFactory();

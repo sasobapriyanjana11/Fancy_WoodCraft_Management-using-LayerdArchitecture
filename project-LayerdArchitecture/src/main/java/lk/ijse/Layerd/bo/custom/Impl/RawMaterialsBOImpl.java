@@ -2,7 +2,6 @@ package lk.ijse.Layerd.bo.custom.Impl;
 
 import lk.ijse.Layerd.bo.custom.RawMaterialsBO;
 import lk.ijse.Layerd.dao.DAOFactory;
-import lk.ijse.Layerd.dao.custom.Impl.RawMaterialModel;
 import lk.ijse.Layerd.dao.custom.RawMaterialsDAO;
 import lk.ijse.Layerd.dto.RawMaterialDto;
 import lk.ijse.Layerd.entity.RawMaterial;

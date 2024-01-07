@@ -18,8 +18,7 @@ import javafx.stage.Stage;
 
 import lk.ijse.Layerd.bo.custom.EmployeeBO;
 import lk.ijse.Layerd.bo.custom.Impl.EmployeeBOImpl;
-import lk.ijse.Layerd.dao.custom.EmployeeDAO;
-import lk.ijse.Layerd.dao.custom.Impl.EmployeeModel;
+import lk.ijse.Layerd.dao.custom.Impl.EmployeeImpl;
 import lk.ijse.Layerd.db.DbConnection;
 import lk.ijse.Layerd.dto.EmployeeDto;
 import net.sf.jasperreports.engine.JasperCompileManager;
@@ -319,7 +318,7 @@ public class EmployeeFormController {
     }
 
     private void loadAllEmployee() {
-        var model = new EmployeeModel();
+        var model = new EmployeeImpl();
 
         ObservableList<EmployeeDto> obList = FXCollections.observableArrayList();
 
@@ -509,7 +508,7 @@ public class EmployeeFormController {
     void txtE_IDOnAction(ActionEvent event) {
         String id = txtE_ID.getText();
 
-        var model = new EmployeeModel();
+        var model = new EmployeeImpl();
         try {
           //  EmployeeDto dto = model.searchEmployee(id);
            // EmployeeDto dto=employeeDAO.search(id);

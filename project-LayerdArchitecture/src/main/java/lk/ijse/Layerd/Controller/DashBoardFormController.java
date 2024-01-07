@@ -24,14 +24,9 @@ import lk.ijse.Layerd.bo.custom.Impl.ProductBOImpl;
 import lk.ijse.Layerd.bo.custom.Impl.SupplierBOImpl;
 import lk.ijse.Layerd.bo.custom.ProductBO;
 import lk.ijse.Layerd.bo.custom.SupplierBO;
-import lk.ijse.Layerd.dao.custom.EmployeeDAO;
-import lk.ijse.Layerd.dao.custom.Impl.EmployeeModel;
-import lk.ijse.Layerd.dao.custom.Impl.OrdersModel;
-import lk.ijse.Layerd.dao.custom.Impl.ProductModel;
-import lk.ijse.Layerd.dao.custom.Impl.SupplierModel;
+import lk.ijse.Layerd.dao.custom.Impl.OrdersImpl;
+import lk.ijse.Layerd.dao.custom.Impl.ProductImpl;
 import lk.ijse.Layerd.dao.custom.OrdersDAO;
-import lk.ijse.Layerd.dao.custom.ProductDAO;
-import lk.ijse.Layerd.dao.custom.SupplierDAO;
 import lk.ijse.Layerd.dto.ProductDto;
 import lk.ijse.Layerd.dto.SupplierDto;
 import lk.ijse.Layerd.view.tdm.productTm;
@@ -120,7 +115,7 @@ public class DashBoardFormController {
     EmployeeDAO employeeDAO=new EmployeeModel();
     ProductDAO productDAO=new ProductModel();
     SupplierDAO supplierDAO=new SupplierModel();*/
-    OrdersDAO ordersDAO=new OrdersModel();
+    OrdersDAO ordersDAO=new OrdersImpl();
     EmployeeBO employeeBO=new EmployeeBOImpl();
     ProductBO productBO=new ProductBOImpl();
     SupplierBO supplierBO=new SupplierBOImpl();
@@ -410,7 +405,7 @@ public class DashBoardFormController {
     }
 
     private void checkProductInStock(String searchText, boolean isHighSeason) {
-        var model = new ProductModel();
+        var model = new ProductImpl();
 
         try {
             List<ProductDto> productList = model.searchProductByName(searchText);

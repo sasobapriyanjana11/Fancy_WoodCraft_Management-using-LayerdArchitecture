@@ -15,21 +15,21 @@ public class DAOFactory {
     public SuperDAO getDAO(getTypes getTypes){
         switch (getTypes){
             case CUSTOMER:
-                return new CustomerModel();
+                return new CustomerImpl();
             case DELIVERY:
-                return new DeliveryModel();
+                return new DeliveryImpl();
             case EMPLOYEE:
-                return new EmployeeModel();
+                return new EmployeeImpl();
             case EMPLOYEESALARY:
-                return  new EmployeeSalaryModel();
+                return  new EmployeeSalaryImpl();
             case ORDERS:
-                return new OrdersModel();
+                return new OrdersImpl();
             case PRODUCT:
-                return new ProductModel();
+                return new ProductImpl();
             case RAWMATERIALS:
-                return new RawMaterialModel();
+                return new RawMaterialImpl();
             case SUPPLIER:
-                return new SupplierModel();
+                return new SupplierImpl();
             default:
                 return  null;
         }

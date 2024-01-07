@@ -10,7 +10,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import lk.ijse.Layerd.dao.custom.Impl.ForgetPasswordModel;
+import lk.ijse.Layerd.dao.custom.Impl.ForgetPasswordImpl;
 import lk.ijse.Layerd.view.tdm.ForgetPasswordTm;
 
 
@@ -55,7 +55,7 @@ public class ForgetPasswordForm {
             String U_ID=txtUser_ID.getText();
 
             var tm=new ForgetPasswordTm(U_ID,pw,cpw,EOTP,btnSendOTP,btnResetPassword);
-            var model=new ForgetPasswordModel();
+            var model=new ForgetPasswordImpl();
 
             try{
 
@@ -107,7 +107,7 @@ public class ForgetPasswordForm {
         void btnSendOTPOnAction(ActionEvent event) {
 
                 String OTP = txtEnterOTP.getText();
-                var model = new ForgetPasswordModel();
+                var model = new ForgetPasswordImpl();
                 try {
                     if (!OTP.isEmpty()) {
                         new Alert(Alert.AlertType.CONFIRMATION, "send OTP\n your OTP is : " + OTP).show();
@@ -229,7 +229,7 @@ public class ForgetPasswordForm {
             boolean isU_IDValidated = isValidDetails();
             if (isU_IDValidated) {
                 String U_ID = txtUser_ID.getText();
-                var model = new ForgetPasswordModel();
+                var model = new ForgetPasswordImpl();
 
                 try {
                     ForgetPasswordTm forgetPasswordTm = model.ForgetPasswordTm(U_ID);

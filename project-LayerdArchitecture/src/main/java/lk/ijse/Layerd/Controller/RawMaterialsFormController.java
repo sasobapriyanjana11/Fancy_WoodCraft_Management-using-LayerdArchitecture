@@ -16,12 +16,8 @@ import lk.ijse.Layerd.bo.custom.Impl.RawMaterialsBOImpl;
 import lk.ijse.Layerd.bo.custom.Impl.SupplierBOImpl;
 import lk.ijse.Layerd.bo.custom.RawMaterialsBO;
 import lk.ijse.Layerd.bo.custom.SupplierBO;
-import lk.ijse.Layerd.dao.custom.Impl.Bill_OF_MaterialModel;
-import lk.ijse.Layerd.dao.custom.Impl.RawMaterialModel;
-import lk.ijse.Layerd.dao.custom.Impl.SupplierDetailsModel;
-import lk.ijse.Layerd.dao.custom.Impl.SupplierModel;
-import lk.ijse.Layerd.dao.custom.RawMaterialsDAO;
-import lk.ijse.Layerd.dao.custom.SupplierDAO;
+import lk.ijse.Layerd.dao.custom.Impl.Bill_OF_MaterialImpl;
+import lk.ijse.Layerd.dao.custom.Impl.SupplierDetailsImpl;
 import lk.ijse.Layerd.dto.RawMaterialDto;
 import lk.ijse.Layerd.dto.SupplierDto;
 
@@ -121,8 +117,8 @@ public class RawMaterialsFormController {
     @FXML
     private ComboBox<String> cmbSupplier_ID;
 
-     private  final SupplierDetailsModel supplierDetailsModel=new SupplierDetailsModel();
-    private  final Bill_OF_MaterialModel billOfMaterialModel=new Bill_OF_MaterialModel();
+     private  final SupplierDetailsImpl supplierDetailsModel=new SupplierDetailsImpl();
+    private  final Bill_OF_MaterialImpl billOfMaterialModel=new Bill_OF_MaterialImpl();
 /////
    /* RawMaterialsDAO rawMaterialsDAO=new RawMaterialModel();
     SupplierDAO supplierDAO=new SupplierModel();*/

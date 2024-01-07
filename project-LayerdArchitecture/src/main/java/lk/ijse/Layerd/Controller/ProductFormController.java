@@ -17,8 +17,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import lk.ijse.Layerd.bo.custom.Impl.ProductBOImpl;
 import lk.ijse.Layerd.bo.custom.ProductBO;
-import lk.ijse.Layerd.dao.custom.Impl.ProductModel;
-import lk.ijse.Layerd.dao.custom.ProductDAO;
 import lk.ijse.Layerd.dto.ProductDto;
 import lk.ijse.Layerd.view.tdm.productTm;
 
